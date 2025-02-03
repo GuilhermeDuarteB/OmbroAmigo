@@ -26,6 +26,13 @@ const configuration = {
 
 let screenStream = null;
 let isScreenSharing = false;
+let iceCandidatesBuffer = [];
+
+// Variáveis para controle de reconexão
+let isReconnecting = false;
+let reconnectionAttempts = 0;
+const MAX_RECONNECTION_ATTEMPTS = 5;
+const RECONNECTION_DELAY = 2000; // 2 segundos
 
 //webrtc API
 //Entrar sempre no site com https senao nao funciona e com o firewall desligado
@@ -62,37 +69,10 @@ async function iniciarConexaoPeer() {
         // Adicionar tracks locais
         localStream.getTracks().forEach(track => {
             peerConnection.addTrack(track, localStream);
-            console.log('Track adicionado:', track.kind);
         });
         
-        // Receber vídeo remoto
-        peerConnection.ontrack = event => {
-            console.log('Track remoto recebido:', event.track.kind);
-            const remoteVideo = document.getElementById('remoteVideo');
-            remoteVideo.srcObject = event.streams[0];
-        };
-        
-        // ICE Candidates
-        peerConnection.onicecandidate = event => {
-            if (event.candidate) {
-                console.log('ICE Candidate:', event.candidate.candidate);
-                console.log('Enviando ICE candidate');
-                enviarSinalização({
-                    type: 'ice-candidate',
-                    candidate: event.candidate,
-                    consultaId: consultaId
-                });
-            }
-        };
-
-        // Log de estados
-        peerConnection.oniceconnectionstatechange = () => {
-            console.log('ICE Connection State:', peerConnection.iceConnectionState);
-        };
-        
-        peerConnection.onconnectionstatechange = () => {
-            console.log('Connection State:', peerConnection.connectionState);
-        };
+        // Configurar handlers de eventos
+        configurarEventHandlers();
         
         // Iniciar oferta se for o profissional
         if (tipoUsuario === 'profissional') {
@@ -186,44 +166,58 @@ function verificarSinalizacoes() {
                 console.log('Sinalização recebida:', data.sinalizacao);
                 const sinal = data.sinalizacao;
                 
-                switch (sinal.type) {
-                    case 'offer':
-                        receberOferta(sinal.offer);
-                        break;
-                    case 'answer':
-                        console.log('Recebendo resposta');
-                        peerConnection.setRemoteDescription(new RTCSessionDescription(sinal.answer))
-                            .then(() => {
-                                // Processar ICE candidates em buffer após definir remote description
-                                while (iceCandidatesBuffer.length > 0) {
-                                    const candidate = iceCandidatesBuffer.shift();
-                                    peerConnection.addIceCandidate(new RTCIceCandidate(candidate))
-                                        .catch(e => console.error('Erro ao adicionar ICE candidate do buffer:', e));
-                                }
-                            });
-                        break;
-                    case 'ice-candidate':
-                        console.log('Recebendo ICE candidate');
-                        const candidate = sinal.candidate;
-                        if (peerConnection.remoteDescription) {
-                            peerConnection.addIceCandidate(new RTCIceCandidate(candidate))
-                                .catch(e => console.error('Erro ao adicionar ICE candidate:', e));
-                        } else {
-                            console.log('Armazenando ICE candidate no buffer');
-                            iceCandidatesBuffer.push(candidate);
-                        }
-                        break;
-                    case 'chat':
-                        receberMensagem(sinal.message);
-                        break;
-                    case 'video-state':
-                        const remoteVideoWrapper = document.getElementById('remoteVideo').parentElement;
-                        remoteVideoWrapper.classList.toggle('video-off', !sinal.enabled);
-                        break;
-                }
+                processarSinalizacao(sinal);
             }
         })
         .catch(error => console.error('Erro ao verificar sinalizações:', error));
+}
+
+// Atualizar a função de processamento de sinalizações
+function processarSinalizacao(sinal) {
+    try {
+        switch (sinal.type) {
+            case 'offer':
+                console.log('Processando oferta');
+                receberOferta(sinal.offer);
+                break;
+            case 'answer':
+                console.log('Processando resposta');
+                if (peerConnection.signalingState !== 'stable') {
+                    peerConnection.setRemoteDescription(new RTCSessionDescription(sinal.answer))
+                        .then(() => {
+                            // Processar ICE candidates em buffer
+                            while (iceCandidatesBuffer.length > 0) {
+                                const candidate = iceCandidatesBuffer.shift();
+                                peerConnection.addIceCandidate(new RTCIceCandidate(candidate))
+                                    .catch(e => console.error('Erro ao adicionar ICE candidate do buffer:', e));
+                            }
+                        })
+                        .catch(e => console.error('Erro ao definir descrição remota:', e));
+                }
+                break;
+            case 'ice-candidate':
+                console.log('Processando ICE candidate');
+                if (sinal.candidate) {
+                    if (peerConnection.remoteDescription) {
+                        peerConnection.addIceCandidate(new RTCIceCandidate(sinal.candidate))
+                            .catch(e => console.error('Erro ao adicionar ICE candidate:', e));
+                    } else {
+                        console.log('Armazenando ICE candidate no buffer');
+                        iceCandidatesBuffer.push(sinal.candidate);
+                    }
+                }
+                break;
+            case 'chat':
+                receberMensagem(sinal.message);
+                break;
+            case 'video-state':
+                const remoteVideoWrapper = document.getElementById('remoteVideo').parentElement;
+                remoteVideoWrapper.classList.toggle('video-off', !sinal.enabled);
+                break;
+        }
+    } catch (error) {
+        console.error('Erro ao processar sinalização:', error);
+    }
 }
 
 // iniciar
@@ -554,4 +548,101 @@ function encerrarChamada() {
     if (localStream) {
         localStream.getTracks().forEach(track => track.stop());
     }
+}
+
+// Função para monitorar estado da conexão
+peerConnection.oniceconnectionstatechange = () => {
+    console.log('ICE Connection State:', peerConnection.iceConnectionState);
+    
+    switch (peerConnection.iceConnectionState) {
+        case 'disconnected':
+        case 'failed':
+            if (!isReconnecting) {
+                console.log('Conexão perdida. Tentando reconectar...');
+                tentarReconectar();
+            }
+            break;
+        case 'connected':
+        case 'completed':
+            console.log('Conexão estabelecida/restaurada');
+            isReconnecting = false;
+            reconnectionAttempts = 0;
+            break;
+    }
+};
+
+// Função para tentar reconexão
+async function tentarReconectar() {
+    if (reconnectionAttempts >= MAX_RECONNECTION_ATTEMPTS) {
+        console.log('Número máximo de tentativas de reconexão atingido');
+        alert('Não foi possível reconectar. Por favor, recarregue a página.');
+        return;
+    }
+
+    isReconnecting = true;
+    reconnectionAttempts++;
+
+    try {
+        console.log(`Tentativa de reconexão ${reconnectionAttempts}/${MAX_RECONNECTION_ATTEMPTS}`);
+
+        // Fechar conexão antiga
+        if (peerConnection) {
+            peerConnection.close();
+        }
+
+        // Criar nova conexão
+        peerConnection = new RTCPeerConnection(configuration);
+        
+        // Readicionar streams locais
+        localStream.getTracks().forEach(track => {
+            peerConnection.addTrack(track, localStream);
+        });
+
+        // Reconfigurar handlers de eventos
+        configurarEventHandlers();
+
+        // Se for o profissional, reiniciar a oferta
+        if (tipoUsuario === 'profissional') {
+            await criarOfertar();
+        }
+
+        // Aguardar antes da próxima tentativa
+        setTimeout(() => {
+            if (peerConnection.iceConnectionState !== 'connected' && 
+                peerConnection.iceConnectionState !== 'completed') {
+                tentarReconectar();
+            }
+        }, RECONNECTION_DELAY);
+
+    } catch (error) {
+        console.error('Erro na tentativa de reconexão:', error);
+        setTimeout(tentarReconectar, RECONNECTION_DELAY);
+    }
+}
+
+// Função para configurar handlers de eventos
+function configurarEventHandlers() {
+    // Handler para vídeo remoto
+    peerConnection.ontrack = event => {
+        console.log('Track remoto recebido:', event.track.kind);
+        const remoteVideo = document.getElementById('remoteVideo');
+        remoteVideo.srcObject = event.streams[0];
+    };
+
+    // Handler para ICE candidates
+    peerConnection.onicecandidate = event => {
+        if (event.candidate) {
+            console.log('Enviando ICE candidate');
+            enviarSinalização({
+                type: 'ice-candidate',
+                candidate: event.candidate,
+                consultaId: consultaId
+            });
+        }
+    };
+
+    // Handler para mudanças de estado da conexão
+    peerConnection.onconnectionstatechange = () => {
+        console.log('Connection State:', peerConnection.connectionState);
+    };
 }
