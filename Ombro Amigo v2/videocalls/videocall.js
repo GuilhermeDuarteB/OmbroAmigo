@@ -550,26 +550,53 @@ function encerrarChamada() {
     }
 }
 
-// Função para monitorar estado da conexão
-peerConnection.oniceconnectionstatechange = () => {
-    console.log('ICE Connection State:', peerConnection.iceConnectionState);
-    
-    switch (peerConnection.iceConnectionState) {
-        case 'disconnected':
-        case 'failed':
-            if (!isReconnecting) {
-                console.log('Conexão perdida. Tentando reconectar...');
-                tentarReconectar();
-            }
-            break;
-        case 'connected':
-        case 'completed':
-            console.log('Conexão estabelecida/restaurada');
-            isReconnecting = false;
-            reconnectionAttempts = 0;
-            break;
-    }
-};
+// Função para configurar handlers de eventos
+function configurarEventHandlers() {
+    // Handler para vídeo remoto
+    peerConnection.ontrack = event => {
+        console.log('Track remoto recebido:', event.track.kind);
+        const remoteVideo = document.getElementById('remoteVideo');
+        remoteVideo.srcObject = event.streams[0];
+    };
+
+    // Handler para ICE candidates
+    peerConnection.onicecandidate = event => {
+        if (event.candidate) {
+            console.log('Enviando ICE candidate');
+            enviarSinalização({
+                type: 'ice-candidate',
+                candidate: event.candidate,
+                consultaId: consultaId
+            });
+        }
+    };
+
+    // Handler para mudanças de estado da conexão
+    peerConnection.onconnectionstatechange = () => {
+        console.log('Connection State:', peerConnection.connectionState);
+    };
+
+    // Handler para mudanças no estado ICE
+    peerConnection.oniceconnectionstatechange = () => {
+        console.log('ICE Connection State:', peerConnection.iceConnectionState);
+        
+        switch (peerConnection.iceConnectionState) {
+            case 'disconnected':
+            case 'failed':
+                if (!isReconnecting) {
+                    console.log('Conexão perdida. Tentando reconectar...');
+                    tentarReconectar();
+                }
+                break;
+            case 'connected':
+            case 'completed':
+                console.log('Conexão estabelecida/restaurada');
+                isReconnecting = false;
+                reconnectionAttempts = 0;
+                break;
+        }
+    };
+}
 
 // Função para tentar reconexão
 async function tentarReconectar() {
@@ -618,31 +645,4 @@ async function tentarReconectar() {
         console.error('Erro na tentativa de reconexão:', error);
         setTimeout(tentarReconectar, RECONNECTION_DELAY);
     }
-}
-
-// Função para configurar handlers de eventos
-function configurarEventHandlers() {
-    // Handler para vídeo remoto
-    peerConnection.ontrack = event => {
-        console.log('Track remoto recebido:', event.track.kind);
-        const remoteVideo = document.getElementById('remoteVideo');
-        remoteVideo.srcObject = event.streams[0];
-    };
-
-    // Handler para ICE candidates
-    peerConnection.onicecandidate = event => {
-        if (event.candidate) {
-            console.log('Enviando ICE candidate');
-            enviarSinalização({
-                type: 'ice-candidate',
-                candidate: event.candidate,
-                consultaId: consultaId
-            });
-        }
-    };
-
-    // Handler para mudanças de estado da conexão
-    peerConnection.onconnectionstatechange = () => {
-        console.log('Connection State:', peerConnection.connectionState);
-    };
 }
