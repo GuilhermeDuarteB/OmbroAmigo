@@ -1,8 +1,26 @@
 let localStream;
 let peerConnection;
+const ACS_ENDPOINT = 'ombroamigo-calls.unitedstates.communication.azure.com';
+const ACS_CREDENTIAL = 'YC4NNvgEJwKhADhuCW6vuA4wtuu7hOTS9CLUDnt6QbiHDSV4IEMgJQQJ99BBACULyCpIwRSxAAAAAZCS7CBO';
+
 const configuration = {
     iceServers: [
-        { urls: 'stun:stun.l.google.com:19302' }
+        // Servidores STUN básicos como fallback
+        { urls: 'stun:stun.l.google.com:19302' },
+        { urls: 'stun:stun1.l.google.com:19302' },
+        
+        // TURN via UDP
+        {
+            urls: [`turn:${ACS_ENDPOINT}:3478?transport=udp`],
+            username: ACS_CREDENTIAL,
+            credential: ACS_CREDENTIAL
+        },
+        // TURN via TCP
+        {
+            urls: [`turn:${ACS_ENDPOINT}:3478?transport=tcp`],
+            username: ACS_CREDENTIAL,
+            credential: ACS_CREDENTIAL
+        }
     ]
 };
 
@@ -57,6 +75,7 @@ async function iniciarConexaoPeer() {
         // ICE Candidates
         peerConnection.onicecandidate = event => {
             if (event.candidate) {
+                console.log('ICE Candidate:', event.candidate.candidate);
                 console.log('Enviando ICE candidate');
                 enviarSinalização({
                     type: 'ice-candidate',
@@ -68,7 +87,7 @@ async function iniciarConexaoPeer() {
 
         // Log de estados
         peerConnection.oniceconnectionstatechange = () => {
-            console.log('ICE State:', peerConnection.iceConnectionState);
+            console.log('ICE Connection State:', peerConnection.iceConnectionState);
         };
         
         peerConnection.onconnectionstatechange = () => {
