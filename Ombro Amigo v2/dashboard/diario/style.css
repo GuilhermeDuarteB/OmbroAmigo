@@ -1,0 +1,388 @@
+.diario {
+  position: relative;
+  margin-left: 440px;
+  padding: 30px;
+  min-height: 100vh;
+  background-color: #f5f6fa;
+}
+
+.diario h1 {
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+  font-size: 2em;
+}
+
+.diario h1::after {
+  content: "";
+  width: 100px;
+  height: 4px;
+  display: block;
+  margin: 10px auto;
+  background-color: #4FD6E8;
+  border-radius: 2px;
+}
+
+/* Estilo para o formulÃ¡rio de entrada */
+.boxInfo {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+#titulo {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  margin-bottom: 10px;
+}
+
+#titulo:focus {
+  border-color: #4FD6E8;
+  outline: none;
+}
+
+#texto {
+  width: 100%;
+  min-height: 150px;
+  padding: 12px;
+  border: 2px solid #e1e1e1;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  margin: 15px 0;
+}
+
+#texto:focus {
+  border-color: #4FD6E8;
+  outline: none;
+}
+
+/* Estilo para as entradas do diÃ¡rio */
+.entradas {
+  margin-top: 30px;
+}
+
+.diario-entradas {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.diario-entradas:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.entrada-data {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.entrada-titulo {
+  color: #333;
+  font-weight: 500;
+  margin: 0 15px;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.buttons button {
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.buttons button:hover {
+  background-color: #f5f5f5;
+}
+
+#view { color: #4FD6E8; }
+#edit { color: #ffd43b; }
+#delete { color: #ff6b6b; }
+
+/* BotÃµes de aÃ§Ã£o principais */
+#addText, #ApagarTodasEntradas {
+  position: fixed;
+  bottom: 30px;
+  padding: 15px;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s;
+}
+
+#addText {
+  right: 30px;
+  background-color: #4FD6E8;
+  color: white;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#ApagarTodasEntradas {
+  right: 110px;
+  background-color: #ff6b6b;
+  color: white;
+  padding: 15px 30px;
+}
+
+#addText:hover, #ApagarTodasEntradas:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* Modais */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  max-width: 600px;
+  width: 90%;
+  z-index: 1000;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.modal-content {
+  display: flex;
+  gap: 20px;
+}
+
+.modal-image {
+  max-width: 200px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Contadores de caracteres */
+.contador {
+  text-align: right;
+  color: #666;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .diario {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .modal-content {
+    flex-direction: column;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #addText, #ApagarTodasEntradas {
+    bottom: 20px;
+  }
+}
+
+.diarioContent, .editContent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.diariocontentfunc, .editcontentfunc {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    position: absolute;
+    max-height: 90vh;
+    overflow-y: auto;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+
+.fa-xmark {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: #666;
+    transition: color 0.3s;
+}
+
+.fa-xmark:hover {
+    color: #ff6b6b;
+}
+
+#textoEntrada {
+    width: 100%;
+    min-height: 200px;
+    padding: 15px;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    margin: 15px 0;
+    font-size: 16px;
+    resize: vertical;
+}
+
+#imagemEntrada {
+    max-width: 100%;
+    height: auto;
+    margin-top: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.textarea-half {
+    width: calc(100% - 220px) !important;
+    float: left;
+}
+
+.textarea-full {
+    width: 100% !important;
+}
+
+.edit-titulo {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 16px;
+    margin: 15px 0 5px 0;
+    transition: border-color 0.3s;
+}
+
+.edit-titulo:focus {
+    border-color: #4FD6E8;
+    outline: none;
+}
+
+.edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e1e1e1;
+}
+
+.btn-cancelar, .btn-salvar {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-cancelar {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #495057;
+}
+
+.btn-salvar {
+    background-color: #4FD6E8;
+    border: none;
+    color: white;
+}
+
+.btn-cancelar:hover {
+    background-color: #e9ecef;
+}
+
+.btn-salvar:hover {
+    background-color: #3bc1d3;
+    transform: translateY(-1px);
+}
+
+/* Estilo para o input de arquivo */
+#uploadfiles {
+    margin: 15px 0;
+    padding: 10px;
+    border: 2px dashed #e1e1e1;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+}
+
+#uploadfiles:hover {
+    border-color: #4FD6E8;
+}
+
+/* Ajustes para os modais */
+.diarioContent, .editContent, .info {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.diariocontentfunc, .editcontentfunc, .boxInfo {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%, -50%);
+}

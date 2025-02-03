@@ -1,0 +1,257 @@
+.head {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 50px auto;
+}
+
+.head h1 {
+    font-size: 3rem;
+    color: #0082e6;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.head h1::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 4px;
+    background-color: #4FD6E8;
+}
+
+.head p {
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.6;
+    max-width: 900px;
+    margin: 10px auto;
+}
+
+.content-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin: 50px 5%;
+    padding: 20px;
+}
+
+.content-section:nth-child(odd) {
+    flex-direction: row-reverse;
+}
+
+.content-section:nth-child(even) {
+    flex-direction: row;
+}
+
+.img, .img2 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+.img img, .img2 img {
+    max-width: 90%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.img img:hover, .img2 img:hover {
+    transform: scale(1.02);
+}
+
+.img2 {
+    flex: 1.5;
+}
+
+.img2 img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+    width: 85%;
+}
+
+.texto {
+    flex: 1;
+    margin: 0;
+}
+
+.backtxt, .background2 {
+    width: 100%;
+    background-color: #f5f5f5;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.background2 {
+margin-left: -7%;}
+
+.backtxt {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.backtxt h2 {
+    text-align: center;
+    color: #0099FF;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.backtxt li {
+    color: #666;
+    margin-bottom: 15px;
+    list-style-type: none;
+    padding-left: 20px;
+    position: relative;
+}
+
+.backtxt li:before {
+    content: "•";
+    color: rgb(79, 214, 232)    ;
+    position: absolute;
+    left: 0;
+    font-size: 20px;
+}
+
+.background2 h2 {
+    color: #0082e6;
+    margin: 30px 0 20px;
+    text-align: center;
+}
+
+#frase {
+    text-align: center;
+    color: #666;
+    font-size: 1.1rem;
+    margin: 20px 0;
+}
+
+.background2 p {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 15px 0;
+    line-height: 1.6;
+}
+
+iframe {
+    width: 100%;
+    max-width: 800px;
+    height: 450px;
+    border-radius: 15px;
+    margin: 30px auto;
+    display: block;
+}
+
+@media (max-width: 1024px) {
+    .head h1 {
+        font-size: 2.5rem;
+    }
+
+    .content-section {
+        flex-direction: column !important;
+        gap: 20px;
+    }
+
+    .img, .img2, .texto {
+        width: 100%;
+    }
+
+    .backtxt, .background2 {
+        max-width: 100%;
+    }
+
+    iframe {
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .head h1 {
+        font-size: 2rem;
+    }
+
+    .head p {
+        font-size: 1rem;
+    }
+
+    .backtxt li, .background2 p {
+        font-size: 1rem;
+    }
+
+    iframe {
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .head h1 {
+        font-size: 1.8rem;
+    }
+
+    iframe {
+        height: 250px;
+    }
+}
+
+.user-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.user-dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    right: 0;
+    padding: 10px;
+}
+
+.user-dropdown-menu ul {
+    display: block;
+    padding: 10px 0;
+}
+
+.user-dropdown-menu ul li {
+    display: block;
+}
+
+.user-dropdown-menu ul li a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.user-dropdown-menu ul li a:hover {
+    background-color: #f1f1f1;
+}
+
+.user-dropdown:hover .user-dropdown-menu {
+    display: block;
+}

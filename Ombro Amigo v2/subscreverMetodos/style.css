@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background: linear-gradient(#ffffff, #599BCE);
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+nav{
+    position: absolute;
+    top: 0;
+    background: #0F94FA;
+    height: 120px;
+    width: 100%;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+nav ul{
+    float: right;
+    margin-right: 20px;
+}
+nav ul li{
+    display: inline-block;
+    line-height: 120px;
+    margin: 0 5px;
+}
+
+nav ul li a{
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    padding: 7px 13px;
+    border-radius: 10px;
+    text-transform: uppercase;
+}
+
+a.active,
+a:hover {
+    background: none;
+    color: #4FD6E8;
+    transition: .10s;
+}
+
+a.linklogo:active,
+a.linklogo:hover {
+    background: transparent;
+}
+
+.logo img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: auto;
+}
+
+.checkbtn {
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+    line-height: 115px;
+    margin-left: calc(100% - 40px);
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 5%;
+    z-index: 999;
+}
+
+.btncheck.fixed {
+    position: fixed;
+}
+
+#check {
+    display: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 150px auto 50px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+    height: auto;
+    align-items: start;
+}
+
+.subscription-details, .payment-section {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    max-height: max-content;
+    width: 100%;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+.plan-info {
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    margin-bottom: 0;
+}
+
+.plan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: 600;
+    color: #0F94FA;
+}
+
+.plan-cycle {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.plan-features {
+    margin-top: 20px;
+}
+
+.payment-methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.payment-method {
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+}
+
+.payment-method input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.payment-method label.method-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.payment-method input[type="radio"]:checked + label.method-content {
+    border-color: #0F94FA;
+    background-color: #f0f9ff;
+}
+
+.payment-details {
+    margin-top: 20px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.flex-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to right, #0F94FA, #4FD6E8);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease;
+    margin-top: 20px;
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+}
+
+.total-amount {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        margin-top: 120px;
+        gap: 20px;
+    }
+
+    body {
+        overflow-y: auto;
+    }
+
+    .flex-row {
+        grid-template-columns: 1fr;
+    }
+
+    nav .checkbtn {
+        display: block;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: #0F94FA;
+    }
+
+    nav input[type="checkbox"]:checked ~ ul {
+        display: flex;
+    }
+
+    nav ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .payment-methods {
+        grid-template-columns: 1fr;
+    }
+}

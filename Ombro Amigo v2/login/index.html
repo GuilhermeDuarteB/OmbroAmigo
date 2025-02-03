@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="../../logo-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/430134e04b.js" crossorigin="anonymous"></script>
+    <title>Entrar | Ombro Amigo</title>
+</head>
+
+<body>
+    
+    <nav>
+        <label class="logo">
+        <a href="../initial page/index.php" class="linklogo"><img src="../../logo-site.png"></a>
+     </label>
+    
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fa-solid fa-bars"></i>
+        </label>
+    </nav>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up" id="registo">
+            <form method="post" action="loginProf.php">
+                <h1>Entra como Profissional</h1>
+                <span>Caso sejas Profissional Acessa a Tua Conta aqui!</span>
+                <section2>
+                    <div class="reginfo1" id="reginfo1">
+                        <div class="form-group2">
+                            <input name="emailProf" type="email" placeholder="Email" required>
+                            <label class="form-label2">Email</label>
+                        </div>
+                    <div class="form-group2">
+                        <input name="PalavraPasse" id="Pass" type="password" placeholder="Palavra-Passe" required>
+                        <label class="form-label2">Palavra-Passe</label>
+                    </div>
+                    <a href="#">Esqueceste-te da tua palavra-passe?</a>
+                </section2>
+                    <button id="btnProf">Entrar!</button>   
+                </div>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form method="post" action="login.php">
+                <h1>Entra como Paciente</h1>
+                <span>Caso sejas Paciente Acessa a Tua Conta aqui!</span>
+                <section>
+                <div class="form-group">
+                    <div class="emailbtn">
+                    <input name="email" type="email" placeholder="Email" required>
+                    <label class="form-label">Email</label>
+                </div>
+                </div>
+                <div class="form-group">
+                    <input name="PalavraPasse" type="password" placeholder="Palavra-Passe" required>
+                    <label class="form-label">Palavra-Passe</label>
+                </div>
+            </section>
+                <a href="#">Esqueceste-te da tua palavra-passe?</a>
+                <button>Entrar!</button>
+            </a>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Entra na Tua Conta de Paciente!</h1>
+                    <p>Caso tenhas conta paciente carrega aqui!</p>
+                    <button class="hidden" id="login">Entrar como Paciente</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Entra na Tua Conta Profissional!</h1>
+                    <p>Caso tenhas uma conta profissional carrega aqui!</p>
+                    <button class="hidden" id="register">Entrar como Profissional</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Verificar se existe um parâmetro de redirecionamento
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirect = urlParams.get('redirect');
+        
+        if (redirect) {
+            const loginMessage = document.getElementById('loginMessage');
+            if (loginMessage) {
+                loginMessage.style.display = 'block';
+            }
+            
+            // Adicionar o redirect como input hidden no formulário
+            const form = document.querySelector('form');
+            const redirectInput = document.createElement('input');
+            redirectInput.type = 'hidden';
+            redirectInput.name = 'redirect';
+            redirectInput.value = redirect;
+            form.appendChild(redirectInput);
+        }
+    });
+    </script>
+</body>
+
+</html>

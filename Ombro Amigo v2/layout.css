@@ -1,0 +1,447 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* Menu Superior Site*/ 
+
+nav {
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    /* header do site */
+    background: #0F94FA;
+    /* Cor teste precisamos alterar */
+    height: 120px;
+    width: 100%;
+}
+
+
+    nav ul {
+        flex: 1;
+        float: right;
+        margin-right: 20px;
+    }
+
+        nav ul li {
+            display: inline-block;
+            line-height: 120px;
+            margin: 0 5px;
+        }
+
+            nav ul li a {
+                color: rgb(255, 255, 255);
+                font-size: 17px;
+                padding: 7px 13px;
+                border-radius: 10px;
+                text-transform: uppercase;
+            }
+
+a.active,
+a:hover {
+    background: none;
+    color: #4FD6E8;
+    /* colocar cor ao selecionar opÃ§Ã£o menu*/
+    transition: .10s;
+}
+
+a.linklogo:active,
+a.linklogo:hover {
+    background: transparent;
+}
+
+.logo img {
+    margin-left: 7%;
+    width: 100px;
+    height: auto;
+}
+
+.checkbtn {
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+    /* trocar cor barra no futuro */
+    line-height: 115px;
+    margin-left: calc(100% - 40px);
+    /* Ajustando margem para a esquerda */
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 5%;
+    z-index: 999;
+    /* Reduzindo o z-index para garantir que o botÃ£o fique acima */
+}
+
+.btncheck.fixed {
+    position: fixed;
+}
+
+#check {
+    display: none;
+}
+
+.dropdown-menu {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-align: center;
+    margin-top: -5px;
+    display: none;
+    position: absolute;
+    background-color: #0F94FA;
+    min-width: 160px;
+    padding: 15px 25px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-menu ul {
+    list-style-type: none;
+    padding: 0; /* Remove padding */
+    margin: 0;  /* Remove margin */
+}
+
+.dropdown-menu ul li {
+    display: block;
+    margin: 0; /* Remove margem entre os itens */
+}
+
+.dropdown-menu ul li a {
+    display: block; /* Faz o link ocupar todo o espaÃ§o do li */
+    padding: 30px 10px; /* Ajuste o padding aqui */
+    color: white; /* Cor do texto */
+    line-height: 1; /* Ajusta a altura da linha para reduzir espaÃ§amento */
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+
+.dropdown-menu li a:hover{
+    transition: 0.5s ease;
+    color: #A0D3FA;
+}
+
+
+
+/* Footer Redesenhado */
+footer {
+    position: relative;
+    width: 100%;
+    background: linear-gradient(135deg, #0F94FA, #4FD6E8);
+    color: #fff;
+    padding: 60px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 50px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.row {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 45% 15% 15% 25%;
+    gap: 20px;
+    padding: 0 40px;
+    position: relative;
+}
+
+.col {
+    padding: 0;
+}
+
+/* Primeira coluna - Logo e texto */
+.col:first-child {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    padding-left: 0;
+}
+
+/* Ajuste para as outras colunas */
+.col:nth-child(2) {
+    margin-left: auto; /* Empurra os links para a direita */
+    grid-column: 2;
+}
+
+.col:nth-child(3) {
+    grid-column: 3;
+}
+
+.col:nth-child(4) {
+    grid-column: 4;
+}
+
+.logofooter {
+    width: 150px;
+    height: auto;
+    flex-shrink: 0;
+    margin-top: 5px;
+    margin-left: -150px;
+}
+
+.col p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 30px;
+    text-align: justify;
+    max-width: 350px;
+    margin-left: 30px;
+}
+
+/* Títulos das colunas */
+.col h3 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.col h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 2px;
+    background: #A0D3FA;
+}
+
+/* Links */
+.linkfooter ul li {
+    margin-bottom: 15px;
+}
+
+.linkfooter ul li:last-child {
+    margin-bottom: 0;
+}
+
+.linkfooter ul li a {
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+.linkfooter ul li a:hover {
+    color: #A0D3FA;
+    transform: translateX(5px);
+}
+
+/* Redes Sociais */
+.colsocial {
+    text-align: center;
+}
+
+.colsocial .linkfooter {
+    display: flex;
+    justify-content: center;
+}
+
+.colsocial .linkfooter i {
+    font-size: 28px;
+    margin: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.colsocial .linkfooter i:hover {
+    background: #A0D3FA;
+    transform: translateY(-5px);
+}
+
+/* Newsletter */
+.col form {
+    display: flex;
+    gap: 10px;
+}
+
+.col form input {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    outline: none;
+}
+
+input::placeholder {
+    color: #fff;
+}
+
+
+.col form button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background: #A0D3FA;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+    .row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+    
+    .col:first-child {
+        position: relative;
+        grid-column: span 2;
+    }
+
+    .col:nth-child(2),
+    .col:nth-child(3),
+    .col:nth-child(4) {
+        margin-left: 0;
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .row {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .col:first-child {
+        grid-column: span 1;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .col h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .col form {
+        flex-direction: column;
+    }
+
+    .col form button {
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .col p {
+        text-align: center;
+    }
+}
+
+/* Ajustes para responsividade */
+@media (max-width: 952px) {
+    nav ul li a {
+        font-size: 16px;
+    }
+    .logo img {
+        width: 85px;
+        margin-left: 5%;
+    }
+}
+
+@media (max-width: 858px) {
+    .checkbtn {
+        display: block;
+    }
+
+    nav {
+        border-radius: 0;
+    }
+
+    nav ul {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #0F94FA;
+        top: 120px;
+        left: -100%;
+        text-align: center;
+        transition: all .5s;
+        z-index: 999;
+        overflow-y: auto;
+    }
+
+    nav ul li {
+        display: block;
+        margin: 50px 0;
+        line-height: 30px;
+    }
+
+    nav ul li a {
+        font-size: 20px;
+    }
+
+    #check:checked ~ ul {
+        left: 0;
+    }
+
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        background: #0F94FA;
+        box-shadow: none;
+        display: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .dropdown-menu ul {
+        float: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .dropdown-menu ul li {
+        margin: 0 !important;
+        padding: 0;
+        line-height: normal !important;
+        display: block;
+    }
+
+    .dropdown-menu ul li a {
+        padding: 15px !important;
+        font-size: 18px !important;
+        line-height: 1.5 !important;
+        display: block;
+        width: 100%;
+        margin: 0;
+    }
+
+    /* Ajuste para o dropdown ativo */
+    .dropdown.active .dropdown-menu {
+        display: block;
+        margin: -20px 0 20px 0;
+    }
+
+    /* Ajuste para o item pai do dropdown */
+    .dropdown > a {
+        margin-bottom: 20px;
+    }
+}
+
+/* Adicione esta classe para bloquear o scroll */
+body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}

@@ -1,0 +1,415 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: linear-gradient(#75bcf3, #599BCE);
+    display: flex;
+    min-height: 100vh;
+    margin-left: 90px;
+}
+
+/* Main Content */
+.admin-container {
+    flex: 1;
+    background: linear-gradient(#75bcf3, #599BCE);
+    padding: 2rem;
+    margin-left: 0;
+    max-width: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    color: #333;
+    font-size: 1.8rem;
+}
+
+/* Table */
+.table-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-table th {
+    background: #f8f9fa;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #1a237e;
+}
+
+.user-table td {
+    padding: 1rem;
+    border-top: 1px solid #eee;
+}
+
+/* Botões de ação */
+.button-container {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.cvbtn, .diplomabtn {
+    padding: 0.5rem 0.8rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #1a237e;
+    color: white;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.cvbtn i, .diplomabtn i {
+    font-size: 0.9rem;
+}
+
+/* Botões de Ações (Aceitar/Recusar) */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.action-buttons form {
+    margin: 0;
+    padding: 0;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-edit, .btn-delete {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-edit {
+    background: #1a237e;
+    color: white;
+}
+
+.btn-edit:not(:disabled):hover {
+    background: #0d1b69;
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background: #ff4d4d;
+    color: white;
+}
+
+.btn-delete:not(:disabled):hover {
+    background: #ff3333;
+    transform: translateY(-2px);
+}
+
+/* Botões desabilitados */
+.btn-edit:disabled, .btn-delete:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Ajuste das colunas da tabela */
+.user-table th, .user-table td {
+    padding: 1rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.user-table th:first-child,
+.user-table td:first-child {
+    text-align: left;
+}
+
+.user-table th:last-child, 
+.user-table td:last-child {
+    text-align: center;
+    width: 100px;
+}
+
+/* Modal de PDF */
+.infoCandidato {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    height: 90vh;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    display: none;
+    z-index: 1000;
+}
+
+.infoCandidato.visible {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Botão Fechar (X) */
+.close-btn, #closeCV, #closeDiploma {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    color: #666;
+}
+
+.close-btn:hover, #closeCV:hover, #closeDiploma:hover {
+    background: #f0f0f0;
+    color: #ff4d4d;
+}
+
+/* Container do PDF */
+#pdfCV, #pdfDiploma {
+    flex: 1;
+    width: 100%;
+    overflow: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #f5f5f5;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+/* Canvas do PDF */
+#pdf-canvas-cv, #pdf-canvas-diploma {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Botão de Aceitar */
+.acceptBtn {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 0;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 1rem 2rem;
+    background: white;
+    border-top: 1px solid #eee;
+}
+
+#acceptCVBtn, #acceptDiplomaBtn {
+    background: #ccc;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: not-allowed;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#acceptCVBtn.enabled, #acceptDiplomaBtn.enabled {
+    background: #4caf50;
+    cursor: pointer;
+}
+
+#acceptCVBtn.enabled:hover, #acceptDiplomaBtn.enabled:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+}
+
+#acceptCVBtn i, #acceptDiplomaBtn i {
+    font-size: 1.2rem;
+}
+
+/* Botões CV e Diploma na tabela */
+.cvbtn, .diplomabtn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #1a237e;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cvbtn:hover, .diplomabtn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.cvbtn.verified, .diplomabtn.verified {
+    background: #4caf50;
+}
+
+/* Indicador de documento verificado */
+.cvbtn.verified, .diplomabtn.verified {
+    background: #4caf50 !important; /* Verde quando verificado */
+}
+
+/* Cursor personalizado para botões desabilitados */
+button[disabled] {
+    cursor: not-allowed !important;
+}
+
+/* Estilo para botões verificados */
+.cvbtn.verified, .diplomabtn.verified {
+    background: #4caf50 !important; /* Verde quando verificado */
+}
+
+/* Menu de Navegação */
+nav {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 1005;
+    left: 0;
+    background: #fff;
+    width: 90px;
+    overflow: hidden;
+    transition: width 0.2s linear;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+
+.logo:hover {
+    background: none;
+}
+
+.logo img {
+    width: 70px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.logo span {
+    font-weight: bold;
+    top: 0;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    border-top: none;
+}
+
+nav ul li a {
+    position: relative;
+    color: rgb(85,83,83);
+    font-size: 14px;
+    display: table;
+    width: 300px;
+    padding: 10px;
+    text-decoration: none;
+    border-top: none;
+}
+
+.fas {
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 14px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.nav-item {
+    position: relative;
+    top: 12px;
+    margin-left: 10px;
+}
+
+nav:hover {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 290px;
+    transition: all 0.5s ease;
+}
+
+.logout {
+    position: absolute;
+    bottom: 0;
+}
+
+/* Responsividade do Menu */
+@media (max-width: 1024px) {
+    .nav-item {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 1rem;
+    }
+}
+
+/* Ajuste do container principal do PDF para acomodar o botão fixo */
+.pdf-container {
+    height: calc(100% - 70px); /* Ajustado para acomodar o botão fixo */
+    overflow: hidden;
+    margin-bottom: 70px; /* Espaço para o botão */
+}
+

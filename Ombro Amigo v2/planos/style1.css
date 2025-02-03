@@ -1,0 +1,375 @@
+/* Body */
+body {
+    background: #f5f5f5;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.tab-precos {
+    background: #f5f5f5;
+}
+
+ .individual, .anual{
+    transition: transform 0.3s;
+}
+
+.individual:hover,.anual:hover{
+    transform: translateY(-5px);
+}
+
+.mensal{
+    transition: transform 0.3s;
+}
+
+.mensal:hover{
+    transform: translateY(-10px);
+
+}
+.tab-precos .detalhes {
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.tab-precos .detalhes h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.tab-precos .detalhes p {
+    color: #666;
+    font-size: 20px;
+}
+
+.tab-precos .tabela {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.tab-precos .tabela .caixa {
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #eee;
+    text-align: center;
+    padding: 20px 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px 5px rgba(0, 0, 0, 0.5);
+}
+
+.tab-precos .tabela .caixa .titulo {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.tab-precos .tabela .caixa .preco {
+    margin-bottom: 15px;
+}
+
+.tab-precos .tabela .caixa .preco b {
+    display: block;
+    font-size: 45px;
+    margin-bottom: -5px;
+}
+
+.tab-precos .tabela .caixa .detalhes > * {
+    color: #555;
+    padding: 8px 0px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+}
+
+.tab-precos .tabela .caixa .botao button {
+    width: 100%;
+    margin: 20px 0px 0px;
+    padding: 12px;
+    background: linear-gradient(to bottom, #3a7bd5, #3a6073);
+    color: #fff;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.tab-precos .tabela .caixa.mensal {
+    transform: scale(1.1);
+    background: linear-gradient(to bottom, #3a7bd5, #3a6073);
+}
+
+.tab-precos .tabela .caixa.mensal .titulo {
+    color: #eee;
+}
+
+.tab-precos .tabela .caixa.mensal .preco {
+    color: #fff;
+}
+
+.tab-precos .tabela .caixa.mensal .detalhes > * {
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.tab-precos .tabela .caixa.mensal .botao button {
+    background: #fff;
+    color: #3a6073;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 804px) {
+    .tab-precos .tabela {
+        gap: 20px;
+    }
+
+    .tab-precos .tabela .caixa {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .tab-precos .tabela .caixa.mensal {
+        transform: scale(1);
+    }
+}
+
+.head {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin: 2% auto;
+}
+
+.head h1 {
+    margin-top: 30px;
+    font-size: 40px; /* Ajustado para responsividade */
+    color: #0082e6;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.head h1::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    display: block;
+    margin: 0 auto;
+    background-color: #4FD6E8;
+}
+
+.head p {
+    font-size: 18px; /* Ajustado para responsividade */
+    color: #666;
+}
+
+.container {
+    width: 90%;
+    margin: 5% auto;
+    padding: 10px 20px;
+}
+
+.sobre {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.imagem {
+    margin-top: -50px;
+    flex: 1;
+    margin-right: 40px;
+    overflow: hidden;
+}
+
+.imagem img {
+    width: 100%; /* Ajusta a largura para 100% do container */
+    max-width: 650px; /* Limite máximo */
+    height: auto;
+    display: block;
+    transition: 0.5s ease;
+}
+
+.sobre-texto {
+    flex: 1;
+    margin-top: -40px;
+}
+
+.sobre-texto h2 {
+    text-align: center;
+    font-size: 27px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.sobre-texto p {
+    font-size: 20px; /* Ajustado para responsividade */
+    line-height: 1.5;
+    color: #666;
+    text-align: center;
+}
+
+.p1 {
+    text-align: center;
+    text-justify: inter-word;
+    margin-top: 25px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.p2 {
+    text-align: center;
+    font-size: 20px; /* Ajustado para responsividade */
+    margin-top: 25px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.imgTabela img {
+    margin-top: -9%;
+    position: absolute;
+    margin-left: -8%;
+    height: 65vh;
+    width: 50%;
+}
+
+/* Novo container flexível */
+.flex-container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start; /* Alinha os itens pelo topo */
+    justify-content: center;
+    max-width: 1200px; /* Limita a largura máxima */
+    margin: 0 auto; /* Centraliza o container */
+}
+
+.tab-container {
+    flex: 0 0 400px; /* Aumentado de 300px para 400px para igualar às outras tabelas */
+}
+
+.tab-container .tab-precos .tabela .caixa {
+    width: 100%;
+    height: 500px;
+    max-width: 400px; /* Igualando ao max-width das outras tabelas */
+    padding: 20px 30px;
+    margin: 0 auto;
+    margin-top: -50px;
+}
+
+.sobre-texto {
+    flex: 0 0 50%;
+    max-width: 600px;
+    padding: 20px;
+    margin-right: -50px;
+    margin-top: 25px;
+}
+
+.sobre-texto h2 {
+    text-align: center;
+    font-size: 27px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.p1 {
+    text-align: justify;
+    text-justify: inter-word;
+    margin-top: 25px;
+    line-height: 1.5;
+    color: #666;
+}
+
+/* Media query para responsividade */
+@media (max-width: 768px) {
+    .flex-container {
+        flex-direction: column;
+        align-items: center; /* Centraliza os elementos */
+        gap: 20px;
+    }
+
+    .tab-container {
+        width: 100%;
+        display: flex; /* Adiciona flex para centralizar */
+        justify-content: center; /* Centraliza horizontalmente */
+    }
+
+    .tab-container .tab-precos {
+        width: 100%;
+        max-width: 320px; /* Mesmo tamanho dos outros planos no mobile */
+    }
+
+    .tab-container .tab-precos .tabela {
+        display: flex;
+        justify-content: center;
+    }
+
+    .sobre-texto {
+        width: 100%;
+        max-width: 320px; /* Alinha com a largura da tabela */
+        padding: 10px;
+        margin-right: 0; /* Remove margem lateral no mobile */
+    }
+}
+
+.heroisSemCapa{
+    margin-top:-90px;
+}
+
+.user-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.user-dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    right: 0;
+    padding: 10px;
+}
+
+.user-dropdown-menu ul {
+    display: block;
+    padding: 10px 0;
+}
+
+.user-dropdown-menu ul li {
+    display: block;
+}
+
+.user-dropdown-menu ul li a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.user-dropdown-menu ul li a:hover {
+    background-color: #f1f1f1;
+}
+
+.user-dropdown:hover .user-dropdown-menu {
+    display: block;
+}

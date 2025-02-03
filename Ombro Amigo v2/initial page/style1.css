@@ -1,0 +1,275 @@
+/* info inicial */
+
+.container {
+    margin-top: -5%;
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
+.infoIn {
+    margin-top: 3%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.imagem img {
+    width: 100%; /* Ajusta para 100% do container */
+    max-width: 700px; /* Limite máximo */
+    height: auto;
+    display: block;
+    transition: 0.5s ease;
+}
+
+.imagem {
+    flex: 1;
+    overflow: hidden;
+    padding: 0 10px; /* Espaçamento interno */
+}
+
+.sobre-texto {
+    flex: 1;
+    margin-top: 5%;
+    padding: 0 10px; /* Espaçamento interno */
+}
+
+.sobre-texto h2 {
+    text-align: center;
+    font-size: 24px; /* Ajuste de tamanho */
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.sobre-texto p {
+    font-size: 18px; /* Ajuste de tamanho */
+    line-height: 1.5;
+    color: #666;
+}
+
+.t1 {
+    text-align: center;
+    text-justify: inter-word;
+    margin-top: 25px;
+    line-height: 1.5;
+    color: #666;
+}
+
+/* texto meio */
+
+.container2 {
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px 20px;  
+}
+
+.imagem2 {
+    flex: 1;
+    overflow: hidden;
+    padding: 0 10px; /* Espaçamento interno */
+}
+
+.imagem2 img {
+    width: 100%; /* Ajusta para 100% do container */
+    max-width: 700px; /* Limite máximo */
+    height: auto;
+    display: block;
+    transition: 0.5s ease;
+}
+
+.infoMeio {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.sobre-texto2 {
+    flex: 1;
+    padding: 0 10px; /* Espaçamento interno */
+}
+
+.sobre-texto2 h2 {
+    text-align: center;
+    font-size: 24px; /* Ajuste de tamanho */
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.sobre-texto2 p {
+    font-size: 18px; /* Ajuste de tamanho */
+    line-height: 1.5;
+    color: #666;
+}
+
+.t2 {
+    text-align: center;
+    text-justify: inter-word;
+    margin-top: 25px;
+    line-height: 1.5;
+    color: #666;
+}
+
+/* texto fim */
+
+.container3 {
+    width: 90%;
+    margin-top: -10%;
+    padding: 10px 20px;
+}
+
+.infoFim {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.imagem3 img {
+    width: 100%; /* Ajusta para 100% do container */
+    max-width: 700px; /* Limite máximo */
+    height: auto;
+    display: block;
+    transition: 0.5s ease;
+}
+
+.imagem3 {
+    flex: 1;
+    overflow: hidden;
+    padding: 0 10px; /* Espaçamento interno */
+}
+
+.sobre-texto3 {
+    flex: 1;
+    margin-top: 5%;
+    padding: 0 10px; /* Espaçamento interno */
+}
+
+.sobre-texto3 h2 {
+    text-align: center;
+    font-size: 24px; /* Ajuste de tamanho */
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.sobre-texto3 p {
+    text-align: center;
+    font-size: 18px; /* Ajuste de tamanho */
+    line-height: 1.5;
+    color: #666;
+}
+
+.t3 {
+    text-justify: inter-word;
+    margin-top: 25px;
+    line-height: 1.5;
+    color: #666;
+}
+
+/* texto fim 2 */
+
+.container4 {
+    width: 90%;
+    margin-top: -8%;
+    padding: 10px 20px;  
+}
+
+.imagem4 {
+    flex: 1;
+    overflow: hidden;
+    margin-bottom: 10%;
+    padding: 0 10px; /* Espaçamento interno */
+    margin-left: 10%;
+}
+
+.imagem4 img {
+    width: 100%; /* Ajusta para 100% do container */
+    max-width: 950px; /* Limite máximo */
+    height: auto;
+    display: block;
+    transition: 0.5s ease;
+}
+
+.infoFim2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.sobre-texto4 {
+    flex: 1;
+    padding: 0 10px; /* Espaçamento interno */
+}
+
+.sobre-texto4 h2 {
+    text-align: center;
+    font-size: 24px; /* Ajuste de tamanho */
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.sobre-texto4 p {
+    font-size: 18px; /* Ajuste de tamanho */
+    line-height: 1.5;
+    color: #666;
+}
+
+.t4 {
+    text-align: center;
+    text-justify: inter-word;
+    margin-top: 25px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.user-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.user-dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    right: 0;
+    padding: 10px;
+}
+
+.user-dropdown-menu ul {
+    display: block;
+    padding: 10px 0;
+}
+
+.user-dropdown-menu ul li {
+    display: block;
+}
+
+.user-dropdown-menu ul li a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.user-dropdown-menu ul li a:hover {
+    background-color: #f1f1f1;
+}
+
+.user-dropdown:hover .user-dropdown-menu {
+    display: block;
+}

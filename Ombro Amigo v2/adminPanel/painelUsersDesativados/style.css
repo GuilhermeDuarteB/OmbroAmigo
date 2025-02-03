@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: linear-gradient(#75bcf3, #599BCE);
+    display: flex;
+    min-height: 100vh;
+    margin-left: 90px;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    background: linear-gradient(#75bcf3, #599BCE);
+    padding: 2rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    color: #333;
+    font-size: 1.8rem;
+}
+
+/* Table */
+.table-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-table th {
+    background: #f8f9fa;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #1a237e;
+}
+
+.user-table td {
+    padding: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.user-photo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.btn-edit {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #4caf50;
+    color: white;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-edit:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.btn-edit i {
+    font-size: 1rem;
+}
+
+/* Menu de Navegação */
+nav {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    background: #fff;
+    width: 90px;
+    overflow: hidden;
+    transition: width 0.2s linear;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+
+.logo:hover {
+    background: none;
+}
+
+.logo img {
+    width: 70px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.logo span {
+    font-weight: bold;
+    top: 0;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+nav ul li a {
+    position: relative;
+    color: rgb(85,83,83);
+    font-size: 14px;
+    display: table;
+    width: 300px;
+    padding: 10px;
+    text-decoration: none;
+    border-top: none;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    border-top: none;
+}
+
+.fas {
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 14px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.nav-item {
+    position: relative;
+    top: 12px;
+    margin-left: 10px;
+}
+
+nav:hover {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 290px;
+    transition: all 0.5s ease;
+}
+
+.logout {
+    position: absolute;
+    bottom: 0;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .nav-item {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 1rem;
+    }
+}
+
+/* Ajustes da tabela e ações */
+.user-table th, .user-table td {
+    padding: 1rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.user-table th:first-child,
+.user-table td:first-child,
+.user-table th:nth-child(2),
+.user-table td:nth-child(2) {
+    text-align: left;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.actions form {
+    margin: 0;
+}
+
+/* Ajuste do header da coluna Ações */
+.user-table th:last-child {
+    text-align: center;
+    width: 100px;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="../../logo-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/430134e04b.js" crossorigin="anonymous"></script>
+    <title>Subscrição | Ombro Amigo</title>
+</head>
+<body>
+    <nav>
+        <label class="logo">
+            <a href="../initial page/index.php" class="linklogo"><img src="../../logo-site.png"></a>
+        </label>
+    
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fa-solid fa-bars"></i>
+        </label>
+    </nav>
+
+    <div class="container">
+        <div class="subscription-details">
+            <h2>Detalhes da Subscrição</h2>
+            <div class="plan-info">
+                <div class="plan-header">
+                    <h3 id="planoNome">Carregando...</h3>
+                    <span class="price" id="planoPreco">€0.00</span>
+                </div>
+                <div class="plan-cycle" id="planoCiclo">Ciclo: -</div>
+                <div class="plan-features" id="planoVantagens">
+                    <!-- Preenchido via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-section">
+            <h2>Método de Pagamento</h2>
+            <form id="paymentForm" action="subscrever.php" method="POST">
+                <div class="payment-methods">
+                    <label class="payment-method">
+                        <input type="radio" name="metodoPagamento" value="cartao_credito" required>
+                        <span class="method-content">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Cartão de Crédito</span>
+                        </span>
+                    </label>
+
+                    <label class="payment-method">
+                        <input type="radio" name="metodoPagamento" value="mbway" required>
+                        <span class="method-content">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>MBWay</span>
+                        </span>
+                    </label>
+
+                    <label class="payment-method">
+                        <input type="radio" name="metodoPagamento" value="paypal" required>
+                        <span class="method-content">
+                            <i class="fab fa-paypal"></i>
+                            <span>PayPal</span>
+                        </span>
+                    </label>
+                </div>
+
+                <div id="cartaoDetails" class="payment-details" style="display:none;">
+                    <div class="input-group">
+                        <label>Número do Cartão</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                    </div>
+                    <div class="flex-row">
+                        <div class="input-group">
+                            <label>Data de Validade</label>
+                            <input type="text" id="expDate" placeholder="MM/AA" maxlength="5">
+                        </div>
+                        <div class="input-group">
+                            <label>CVV</label>
+                            <input type="text" id="cvv" placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="mbwayDetails" class="payment-details" style="display:none;">
+                    <div class="input-group">
+                        <label>Número de Telemóvel</label>
+                        <input type="tel" placeholder="9XXXXXXXX" pattern="9[0-9]{8}">
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button">
+                    Confirmar Pagamento
+                    <span class="total-amount" id="totalAmount">€0.00</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

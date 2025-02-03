@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="x-icon" href="../../logo-icon.png">
+    <script src="https://kit.fontawesome.com/430134e04b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Registar | Ombro Amigo</title>
+</head>
+<body>
+    <nav>
+        <label class="logo">
+        <a href="../initial page/index.php" class="linklogo"><img src="../../logo-site.png"></a>
+     </label>
+    
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fa-solid fa-bars"></i>
+        </label>
+    </nav>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up" id="registo">
+            <form id="formProfissional" method="post" action="registoProf.php" enctype="multipart/form-data">
+                <div id="registerMessage" class="message" style="display: none;">
+                    Para continuar com a subscrição, por favor crie uma conta ou faça login.
+                </div>
+                <h1 id="h1Cand" style="display: block;">Candidata-te a Profissional!</h1>
+                <span id="spanCand">Faz a tua candidatura, vê todas as vantagens em <a href="../candidaturas/candidaturas.php">candidatar-me</a>!</span>
+                <section2>
+                    <div class="reginfo1" id="reginfo1">
+                        <div class="form-group2">
+                            <input name="nome" type="text" placeholder="Nome Completo*" required>
+                            <label class="form-label2">Nome Completo*</label>
+                        </div>
+                    <div class="form-group2">
+                        <input name="email" type="email" placeholder="Email*" required>
+                        <label class="form-label2"> Email*</label>
+                    </div>
+                    <div class="form-group2">
+                        <input name="PalavraPasse" id="Pass" type="password" placeholder="Palavra-Passe*" required>
+                        <label class="form-label2">Palavra-Passe*</label>
+                    </div>
+                    <div class="form-group2">
+                        <input id="confPass" type="password" placeholder="Confirmar Palavra-Passe*" required>
+                        <label class="form-label2">Confirmar Palavra-Passe*</label>
+                    </div>
+                    <label id="confMsg"></label>
+
+                    <div class="form-group2">
+                            <label for="genero" class="form-label2" id="generoLabel" > Gênero	</label>
+                            <select name="genero" id="genero" required>
+                                <option value="" data-default disabled selected></option>
+                                <option value="masculino">Masculino</option>
+                                <option value="feminino">Feminino</option>
+                                <option value="nDizer">Prefiro não Dizer</option>
+                            </select>
+
+                    </div>
+                    <button id="btnseguinte" onclick="checkPassword()">Seguinte</button>   
+                </div>
+            
+
+                <div class="regInfo2" id="registerInfo2" style="display: none;">
+                    <div class="form-group">
+                        <input name="nomeUtilizador" type="text" placeholder="Nome de Utilizador*" required>
+                        <label class="form-label">Nome de Utilizador*</label>
+                      </div>
+                    <div class="form-group">
+                        <input name="dataNascimento" type="date" id="dataNascimento" placeholder="Data de Nascimento*" required>
+                        <label class="form-label">Data de Nascimento*</label>
+                      </div>
+                  <div class="form-group">
+                    <input name="nTelefone" type="tel" id="telemovel1" placeholder="Número de Telefone*" required pattern="\d{9}" title="Por favor, insira exatamente 9 dígitos.">
+                    <label class="form-label">Número de Telefone*</label>
+                  </div>
+                  <div class="form-group">
+                    <input name="morada" type="text" placeholder="Morada*" required>
+                    <label class="form-label">Morada*</label>
+                  </div>
+                  <div class="form-group2">
+                    <label for="situacao" class="form-label2" id="situacaoLabel" > Situação Atual</label>
+                    <select name="situacao" id="situacao" required>
+                        <option value="" data-default disabled selected></option>
+                        <option value="desempregado">Desempregado</option>
+                        <option value="empregado">Empregado</option>
+                        <option value="primeiroEmprego">Primeiro Trabalho</option>
+                    </select>
+            </div>
+                  <button id="btnseguinte2">Seguinte</button>  
+             </div>
+
+             <div class="regInfo3" id="registerInfo3" style="display: none;">
+                <div class="form-group">
+                    <input name="estabelecimentoEnsino" type="text" placeholder="Estabelecimento de Ensino*" required>
+                    <label class="form-label">Estabelecimento de Ensino*</label>
+                  </div>
+                  <div class="form-group2">
+                    <label for="areaEspecializada" id="labelAreaEspecializada">Área Especializada</label>
+                    <select name="areaEspecializada" id="areaEspecializada" required>
+                      <option value="" data-default disabled selected></option>
+                      <option value="Nutricao">Nutrição</option>
+                      <option value="Psiquiatria">Psiquiatria</option>
+                      <option value="Psicologia">Psicologia</option>
+                      <option value="Medicina Geral">Medicina Geral</option>
+                    </select>
+                  </div><br>
+                  <br>  <textarea id="motivo" name="motivo" placeholder="Insere o motivo de te candidatares à plataforma!" required style="height: 25vh; width: 100%; box-sizing: border-box; resize: none; font-size: 15px; border: 2px solid #2caabb; border-radius: 10px;"></textarea>
+              <button id="btnseguinte3">Seguinte</button>  
+         </div>
+
+         <div class="regInfo4" id="registerInfo4" style="display: none;">
+            <div class="form-group">
+                <input name="CV" type="file" placeholder="CV*" accept=".pdf" required>
+                <label class="form-label">Insere o teu CV*</label>
+              </div>
+              <div class="form-group">
+                <input name="Diploma" type="file" accept=".pdf" placeholder="Diploma*" required>
+                <label class="form-label">Diploma da Área*</label>
+              </div>
+          <button id="btnseguinte4" type="submit">Finalizar Candidatura!</button> 
+     </div>
+
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form id="formPaciente" method="post" action="registo.php">
+                <div class="regTxt">
+                <h1 id="h1P">Regista-te como Paciente</h1>
+                <span>Cria já a tua conta de Paciente e <br> começa a marcar as tuas consultas!</span></div>
+                <section>
+                    <div id="regInfo1User" style="display: block;">
+                    <div class="form-group">
+                        <div class="emailbtn">
+                        <input name="nome" type="text" placeholder="nome" required>
+                        <label class="form-label">Nome</label>
+                    </div>
+                <div class="form-group">
+                    <div class="emailbtn">
+                    <input name="email" type="email" placeholder="Email" required>
+                    <label class="form-label">Email</label>
+                </div>
+                </div>
+                <div class="form-group">
+                    <input name="PalavraPasse" id="PassUser" type="password" placeholder="Palavra-Passe" required>
+                    <label class="form-label">Palavra-Passe</label>
+                </div>
+                <div class="form-group">
+                    <input id="confPassUser" type="password" placeholder="Confirmar Palavra-Passe*" required>
+                    <label class="form-label">Confirmar Palavra-Passe*</label>
+                </div>
+                <p id="confMsgUser"></p>
+                    <button id="btnseguinteUser" onclick="checkPasswordUser()">Seguinte</button> 
+                </div>
+            </div>
+                    <div class="regInfo" id="regInfo2User" style="display: none;">
+                        <div class="form-group">
+                            <input name="nomeUtilizador" type="text" placeholder="Nome de Utilizador*" required>
+                            <label class="form-label">Nome de Utilizador*</label>
+                          </div>
+                        <div class="form-group">
+                            <input name="dataNascimento" type="date" id="dataNascimentoUser" placeholder="Data de Nascimento*" required>
+                            <label class="form-label">Data de Nascimento*</label>
+                          </div>
+                      <div class="form-group">
+                        <input name="nTelefone" type="tel" id="telemovel2" placeholder="Número de Telefone*" required pattern="\d{9}" title="Por favor, insira exatamente 9 dígitos.">
+                        <label class="form-label">Número de Telefone*</label>
+                      </div>
+                      <button id="btnFimUser">Finalizar Registo!</button>  
+                 </div>
+            </section>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1 id="h1Pac">Regista-te como Paciente!</h1>
+                    <p id="pPac">Vem criar a tua conta e começa já a marcar consultas!</p>
+                    <button class="hidden" id="login">Registar-me como Paciente</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1 id="h1Prof">Candidata-te a Profissional!</h1>
+                    <p id="pProf">Vem ajudar as pessoas ao fazer a tua candidatura de profissional!</p>
+                    <button class="hidden" id="register">Candidatar-me a Profissional!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirect = urlParams.get('redirect');
+        
+        if (redirect) {
+            const registerMessage = document.getElementById('registerMessage');
+            if (registerMessage) {
+                registerMessage.style.display = 'block';
+            }
+            
+            // Adicionar o redirect como input hidden no formulário
+            const form = document.querySelector('form');
+            const redirectInput = document.createElement('input');
+            redirectInput.type = 'hidden';
+            redirectInput.name = 'redirect';
+            redirectInput.value = redirect;
+            form.appendChild(redirectInput);
+        }
+    });
+    </script>
+</body>
+</html>

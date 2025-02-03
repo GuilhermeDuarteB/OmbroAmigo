@@ -1,0 +1,357 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: linear-gradient(#75bcf3, #599BCE);
+    display: flex;
+    min-height: 100vh;
+    margin-left: 90px;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    background: linear-gradient(#75bcf3, #599BCE);
+    padding: 2rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    color: #333;
+    font-size: 1.8rem;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Buttons */
+.btn-create, .btn-delete-all {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-create {
+    background: #1a237e;
+    color: white;
+}
+
+.btn-create:hover {
+    background: #0d1b69;
+    transform: translateY(-2px);
+}
+
+.btn-delete-all {
+    background: #ff4d4d;
+    color: white;
+}
+
+.btn-delete-all:hover {
+    background: #ff3333;
+    transform: translateY(-2px);
+}
+
+/* Table */
+.table-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-table th {
+    background: #f8f9fa;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #1a237e;
+}
+
+.user-table td {
+    padding: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.user-photo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.no-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #757575;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-edit, .btn-delete {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-edit {
+    background: #1a237e;
+    color: white;
+}
+
+.btn-delete {
+    background: #ff4d4d;
+    color: white;
+}
+
+.btn-edit:hover, .btn-delete:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* Search Container */
+.search-container {
+    position: relative;
+    margin-right: 1rem;
+    min-width: 300px;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 8px 12px 8px 35px;
+    border: 1px solid #e1e1e1;
+    border-radius: 20px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.search-container input:focus {
+    outline: none;
+    border-color: #007BFF;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.search-container:before,
+.search-icon:before {
+    display: none !important;
+}
+
+.search-container .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #757575;
+    font-size: 15px;
+    z-index: 2;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 80px;
+    }
+    
+    .nav-item {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 1rem;
+    }
+    
+    .search-container input {
+        width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .header-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .btn-create, .btn-delete-all {
+        flex: 1;
+    }
+    
+    .search-container {
+        width: 100%;
+        margin-right: 0;
+    }
+    
+    .search-container input {
+        width: 100%;
+    }
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    background: #fff;
+    width: 90px;
+    overflow: hidden;
+    transition: width 0.2s linear;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+
+.logo:hover {
+    background: none;
+}
+
+.logo img {
+    width: 70px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.logo span {
+    font-weight: bold;
+    top: 0;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+nav ul li a {
+    position: relative;
+    color: rgb(85,83,83);
+    font-size: 14px;
+    display: table;
+    width: 300px;
+    padding: 10px;
+    text-decoration: none;
+    border-top: none;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    border-top: none;
+}
+
+.nav-icon {
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 14px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.nav-item {
+    position: relative;
+    top: 12px;
+    margin-left: 10px;
+}
+
+nav:hover {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 290px;
+    transition: all 0.5s ease;
+}
+
+.logout {
+    position: absolute;
+    bottom: 0;
+}
+
+.btn-icon {
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-create, .btn-delete-all, .btn-edit, .btn-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Estilo especÃ­fico para Ã­cones da navegaÃ§Ã£o (exceto logo) */
+nav ul li a .fas {
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 14px;
+    font-size: 20px;
+    text-align: center;
+}
+
+/* Estilo especÃ­fico para o Ã­cone da logo */
+.logo .fas {
+    position: relative;
+    width: 70px;
+    height: 80px;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo especÃ­fico para Ã­cones dos botÃµes */
+.header-actions .fas,
+.actions .fas {
+    position: static;
+    width: auto;
+    height: auto;
+    top: 0;
+    font-size: 16px;
+}

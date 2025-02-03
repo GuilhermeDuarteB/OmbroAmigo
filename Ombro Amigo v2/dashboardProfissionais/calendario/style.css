@@ -1,0 +1,691 @@
+:root {
+  --dark-text: #f8fbff;
+     --light-body: #f3f8fe;
+     --light-main: #fdfdfd;
+     --light-second: #c3c2c8;
+     --light-hover: #f0f0f0;
+     --light-text: #151426;
+     --light-btn: #4FD6E8;
+     --blue: #0000ff;
+     --white: #fff;
+     --shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+     --font-family: consolas;
+ }
+ 
+ .contianer2 {
+    transform: translate(-50%);
+   left: 50%;
+   width: max-content;
+   height: max-content;
+   position: absolute;
+   display: flex;
+   padding: 2% 0px 0px 0px;
+   justify-content: center;
+   margin-top: 4.3%;
+ }
+ 
+ .calendar {
+   height: 610px;
+   width: max-content;
+   background-color: white;
+   border-top-left-radius: 5%;
+   border-bottom-left-radius: 5%;
+   overflow: hidden;
+   padding: 30px 50px 0px 50px;
+ }
+ 
+ .calendar {
+   box-shadow: var(--shadow);
+ }
+ 
+ .calendar-header {
+   background: #0F94FA;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   font-weight: 700;
+   color: var(--white);
+   padding: 10px;
+ }
+ 
+ .calendar-body {
+   pad: 10px;
+ }
+ 
+ .calendar-week-days {
+   display: grid;
+   grid-template-columns: repeat(7, 1fr);
+   font-weight: 600;
+   cursor: pointer;
+   color: rgb(104, 104, 104);
+ }
+ 
+ .calendar-week-days div:hover {
+   color: black;
+   transform: scale(1.2);
+   transition: all .2s ease-in-out;
+ }
+ 
+ .calendar-week-days div {
+   display: grid;
+   place-items: center;
+   color: var(--bg-second);
+   height: 50px;
+ }
+ 
+ .calendar-days {
+   display: grid;
+   grid-template-columns: repeat(7, 1fr);
+   gap: 2px;
+   color: var(--color-txt);
+ }
+ 
+ .calendar-days div {
+   width: 37px;
+   height: 33px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 5px;
+   position: relative;
+   cursor: pointer;
+   animation: to-top 1s forwards;
+ }
+ 
+ .month-picker {
+   padding: 5px 10px;
+   border-radius: 10px;
+   cursor: pointer;
+ }
+ 
+ .month-picker:hover {
+   background-color: var(--color-hover);
+ }
+ 
+ .month-picker:hover {
+   color: var(--color-txt);
+ }
+ 
+ .year-picker {
+   display: flex;
+   align-items: center;
+ }
+ 
+ .year-change {
+   height: 30px;
+   width: 30px;
+   border-radius: 50%;
+   display: grid;
+   place-items: center;
+   margin: 0px 10px;
+   cursor: pointer;
+ }
+ 
+ .year-change:hover {
+   background-color: var(--light-btn);
+   transition: all .2s ease-in-out;
+   transform: scale(1.12);
+ }
+ 
+ .year-change:hover pre {
+   color: var(--bg-body);
+ }
+ 
+ .calendar-footer {
+   display: none;
+ }
+ 
+ #year:hover {
+   cursor: pointer;
+   transform: scale(1.2);
+   transition: all 0.2 ease-in-out;
+ }
+ 
+ .calendar-days div span {
+   position: absolute;
+ }
+ 
+ .calendar-days div:hover {
+   transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+   background-color: #25baa6; 
+ 
+   border-radius: 20%;
+   color: var(--dark-text);
+ }
+ 
+ .calendar-days div.current-date {
+   color: var(--dark-text);
+   background-color: var(--light-btn);
+   border-radius: 20%;
+ }
+ 
+ .month-list {
+   position: relative;
+   left: 0;
+   top: -50px;
+   background-color: #ebebeb;
+   color: var(--light-text);
+   display: grid;
+   grid-template-columns: repeat(3, auto);
+   gap: 5px;
+   border-radius: 20px;
+ }
+ 
+ .month-list>div {
+   display: grid;
+   place-content: center;
+   margin: 5px 10px;
+   transition: all 0.2s ease-in-out;
+ }
+ 
+ .month-list>div>div {
+   border-radius: 15px;
+   padding: 10px;
+   cursor: pointer;
+ }
+ 
+ .month-list>div>div:hover {
+   background-color: var(--light-btn);
+   color: var(--dark-text);
+   transform: scale(0.9);
+   transition: all 0.2s ease-in-out;
+ }
+ 
+ .month-list.show {
+   visibility: visible;
+   pointer-events: visible;
+   transition: 0.6s ease-in-out;
+   animation: to-left .71s forwards;
+ }
+ 
+ .month-list.hideonce {
+   visibility: hidden;
+ }
+ 
+ .month-list.hide {
+   animation: to-right 1s forwards;
+   visibility: none;
+   pointer-events: none;
+ }
+ 
+ .date-time-formate {
+   width: max-content;
+   height: max-content;
+   font-family: Dubai Light, Century Gothic;
+   position: relative;
+   display: inline;
+   top: 140px;
+   justify-content: center;
+ }
+ 
+ .day-text-formate {
+   font-family: Microsoft JhengHei UI;
+   font-size: 1.4rem;
+   padding-right: 5%;
+   border-right: 3px solid #0F94FA;
+   position: absolute;
+   left: -1rem;
+ }
+ 
+ .date-time-value {
+   display: block;
+   height: max-content;
+   width: max-content;
+   position: relative;
+   left: 40%;
+   top: -18px;
+   text-align: center;
+ }
+ 
+ .time-formate {
+   font-size: 1.5rem;
+ }
+ 
+ .time-formate,
+ .date-formate {
+   margin-right: 25%;
+ }
+ 
+ .prox-evento {
+ 
+   float: right;
+   font-family: Dubai Light, Century Gothic;
+   text-align: center;
+ }
+ 
+ .prox-evento {
+   height: 610px;
+   width: max-content;
+   background-color: white;
+   padding: 30px 50px;
+   border-top-right-radius: 5%;
+   border-bottom-right-radius: 5%;
+   box-shadow: var(--shadow);
+   display: flex;
+   flex-direction: column;
+   position: relative;
+ }
+ 
+ .consultas-container {
+   flex: 1;
+   overflow-y: auto;
+   margin-bottom: 20px;
+ }
+ 
+ .prox-evento h3::after {
+   margin-top: 1.5%;
+   content: "";
+   position: absolute;
+   width: 100%;
+   height: 4px;
+   display: block;
+   background-color: #0F94FA;
+ }
+ 
+ .prox-evento h3 {
+   margin-top: 5%;
+   position: relative;
+ }
+ 
+ .time-formate.hideTime {
+   animation: hidetime 1.5s forwards;
+ }
+ 
+ .day-text-formate.hidetime {
+   animation: hidetime 1.5s forwards;
+ }
+ 
+ .date-formate.hideTime {
+   animation: hidetime 1.5s forwards;
+ }
+ 
+ .day-text-formate.showtime {
+   animation: showtime 1s forwards;
+ }
+ 
+ .time-formate.showtime {
+   animation: showtime 1s forwards;
+ }
+ 
+ .date-formate.showtime {
+   animation: showtime 1s forwards;
+ }
+ 
+ @keyframes to-top {
+   0% {
+     transform: translateY(0);
+     opacity: 0;
+   }
+ 
+   100% {
+     transform: translateY(100%);
+     opacity: 1;
+   }
+ }
+ 
+ @keyframes to-left {
+   0% {
+     transform: translatex(230%);
+     opacity: 1;
+   }
+ 
+   100% {
+     transform: translatex(0);
+     opacity: 1;
+   }
+ }
+ 
+ @keyframes to-right {
+   10% {
+     transform: translatex(0);
+     opacity: 1;
+   }
+ 
+   100% {
+     transform: translatex(-150%);
+     opacity: 1;
+   }
+ }
+ 
+ @keyframes showtime {
+   0% {
+     transform: translatex(250%);
+     opacity: 1;
+   }
+ 
+   100% {
+     transform: translatex(0%);
+     opacity: 1;
+   }
+ }
+ 
+ @keyframes hidetime {
+   0% {
+     transform: translatex(0%);
+     opacity: 1;
+   }
+ 
+   100% {
+     transform: translatex(-370%);
+     opacity: 1;
+   }
+ }
+ 
+ @media (max-width:375px) {
+   .month-list>div {
+ 
+     margin: 5px 0px;
+   }
+ }
+ 
+ #definirHSemanal {
+   width: 100%;
+   color: white;
+   border-radius: 15px;
+   height: 40px;
+   cursor: pointer;
+   border: none;
+   background-color: #3398b6;
+   font-size: 14px;
+   transition: background-color 0.3s ease;
+   position: absolute;
+   bottom: 20px;
+   left: 0;
+   right: 0;
+   margin: 0 auto;
+   width: calc(100% - 40px);
+ }
+ 
+ #definirHSemanal:hover {
+   background-color: #2b7d96;
+ }
+ 
+ #closeMenu {
+   float: right;
+   background-color: transparent;
+   font-size: 20px;
+   margin-right: 3%;
+   margin-top: 2%;
+ }
+ 
+ .definirHorarioContainer {
+   display: none;
+   position: fixed;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   background-color: white;
+   padding: 30px;
+   border-radius: 15px;
+   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+   z-index: 1000;
+   opacity: 0;
+   transition: all 0.3s ease;
+   width: 90%;
+   max-width: 600px;
+ }
+ 
+ .definirHorarioContainer.active {
+   opacity: 1;
+ }
+ 
+ .definirHorarioContainer h4 {
+   color: #333;
+   font-size: 24px;
+   margin-bottom: 25px;
+   text-align: center;
+   font-weight: 600;
+ }
+ 
+ .inputContainer {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 30px;
+   margin-bottom: 30px;
+ }
+ 
+ .dataInput, .horarioInput {
+   display: flex;
+   flex-direction: column;
+   gap: 15px;
+ }
+ 
+ .definirHorarioContainer label {
+   color: #555;
+   font-size: 16px;
+   margin-bottom: 5px;
+ }
+ 
+ .definirHorarioContainer input {
+   padding: 12px;
+   border: 2px solid #e0e0e0;
+   border-radius: 8px;
+   font-size: 16px;
+   transition: border-color 0.3s ease;
+ }
+ 
+ .definirHorarioContainer input:focus {
+   border-color: #3398b6;
+   outline: none;
+ }
+ 
+ #btnHorario {
+   width: 100%;
+   padding: 15px;
+   background-color: #3398b6;
+   color: white;
+   border: none;
+   border-radius: 8px;
+   font-size: 16px;
+   font-weight: 500;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+   margin-top: 20px;
+ }
+ 
+ #btnHorario:hover {
+   background-color: #2b7d96;
+ }
+ 
+ #closeMenu {
+   position: absolute;
+   top: 15px;
+   right: 15px;
+   background: none;
+   border: none;
+   font-size: 24px;
+   color: #666;
+   cursor: pointer;
+   transition: color 0.3s ease;
+   padding: 5px;
+ }
+ 
+ #closeMenu:hover {
+   color: #333;
+ }
+ 
+ /* Adicionar overlay escuro quando o modal estiver aberto */
+ .definirHorarioContainer::before {
+   content: '';
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: azure;
+   z-index: -1;
+ }
+ 
+ /* Responsividade */
+ @media (max-width: 768px) {
+   .inputContainer {
+     grid-template-columns: 1fr;
+     gap: 20px;
+   }
+ 
+   .definirHorarioContainer {
+     width: 95%;
+     padding: 20px;
+   }
+ 
+   .definirHorarioContainer h4 {
+     font-size: 20px;
+   }
+ }
+ 
+ .calendar-days div.highlight-date {
+  background-color: green;
+  color: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.calendar-days div.highlight-date:hover {
+  transform: scale(1.2);
+}
+
+.calendar-days div.has-schedule {
+    background-color: #4CAF50;  /* Verde */
+    color: white;
+    border-radius: 20%;
+}
+
+.calendar-days div.some-appointments {
+    background-color: #FFC107;  /* Amarelo */
+    color: white;
+    border-radius: 20%;
+}
+
+.calendar-days div.many-appointments {
+    background-color: #F44336;  /* Vermelho */
+    color: white;
+    border-radius: 20%;
+}
+
+/* Adicionar legenda */
+.calendar-legend {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+    font-size: 0.8em;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.legend-green { background-color: #4CAF50; }
+.legend-yellow { background-color: #FFC107; }
+.legend-red { background-color: #F44336; }
+
+.prox-evento {
+    height: 610px;
+    width: max-content;
+    background-color: white;
+    padding: 30px 50px;
+    border-top-right-radius: 5%;
+    border-bottom-right-radius: 5%;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.prox-evento h3 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.prox-evento h3::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #0F94FA;
+}
+
+.evento-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    gap: 15px;
+}
+
+.evento-item:last-child {
+    border-bottom: none;
+}
+
+.evento-item img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.evento-detalhes {
+    flex: 1;
+}
+
+.nome-utilizador {
+    display: block;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.evento-info {
+    display: flex;
+    gap: 15px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.evento-info span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.evento-info i {
+    color: #0F94FA;
+}
+
+.sem-eventos {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 20px 0;
+}
+
+/* Estilização da barra de rolagem */
+.prox-evento::-webkit-scrollbar {
+    width: 6px;
+}
+
+.prox-evento::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.prox-evento::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.prox-evento::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

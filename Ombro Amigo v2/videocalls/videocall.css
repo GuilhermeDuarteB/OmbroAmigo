@@ -1,0 +1,580 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: #000;
+    overflow: hidden; /* Previne scroll */
+}
+
+.video-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    transition: all 0.3s ease;
+}
+
+.video-container.chat-hidden {
+    width: 100vw;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.video-off {
+    position: relative;
+}
+
+.video-off video {
+    opacity: 0;
+}
+
+.profile-picture {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    z-index: 2;
+}
+
+.video-off .profile-picture {
+    display: block;
+}
+
+/* Ajuste para o vídeo pequeno */
+.small-video .profile-picture {
+    width: 100px;
+    height: 100px;
+}
+
+.video-grid {
+    position: relative;
+    flex: 1;
+    height: 100vh;
+    transition: width 0.3s ease;
+}
+
+/* Ajuste quando o chat está aberto */
+.video-container:not(.chat-hidden) .video-grid {
+    width: calc(100vw - 300px);
+}
+
+/* Vídeo principal (ocupa toda a tela) */
+.video-box.main {
+    width: 100%;
+    height: 100%;
+}
+
+.video-box.main video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Vídeo secundário (pequeno no canto) */
+.video-box.secondary {
+    position: absolute;
+    width: 280px;
+    height: 158px; /* Mantém proporção 16:9 */
+    right: 20px;
+    top: 20px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.video-box.secondary video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-label {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.chat-container {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 300px;
+    height: 100vh;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    z-index: 100;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+}
+
+.chat-container.hidden {
+    transform: translateX(100%);
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background: #f8f9fa;
+}
+
+.message {
+    margin-bottom: 15px;
+    max-width: 85%;
+    clear: both;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease;
+}
+
+.message.sent {
+    float: right;
+    align-items: flex-end;
+}
+
+.message.received {
+    float: left;
+    align-items: flex-start;
+}
+
+.message-sender {
+    font-size: 0.8em;
+    margin-bottom: 3px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.message-content {
+    padding: 10px 15px;
+    border-radius: 15px;
+    position: relative;
+    word-wrap: break-word;
+    max-width: 100%;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Mensagem recebida */
+.message.received .message-content {
+    background: #6c757d;
+    color: #ffffff;
+    border-bottom-left-radius: 5px;
+}
+
+/* Mensagem enviada */
+.message.sent .message-content {
+    background: #007bff;
+    color: #ffffff;
+    border-bottom-right-radius: 5px;
+}
+
+.message-time {
+    font-size: 0.75em;
+    margin-top: 4px;
+    color: #666;
+}
+
+.chat-input {
+    padding: 15px;
+    background: #fff;
+    border-top: 1px solid #dee2e6;
+    display: flex;
+    gap: 10px;
+}
+
+#messageInput {
+    width: calc(100% - 50px);
+    padding: 10px 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+#messageInput:focus {
+    border-color: #007bff;
+}
+
+.chat-input button {
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.chat-input button:hover {
+    background: #0056b3;
+}
+
+.controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50px;
+    z-index: 1000;
+}
+
+.control-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.control-btn.end-call {
+    background: #dc3545;
+}
+
+.control-btn.end-call:hover {
+    background: #c82333;
+}
+
+/* Atualizar o ícone do botão de chat */
+#toggleChat i {
+    transition: transform 0.3s ease;
+}
+
+#toggleChat.chat-visible i {
+    transform: rotate(180deg);
+}
+
+.video-box {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-box video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.profile-photo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: none;
+    border: 3px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.video-box.video-off {
+    background: #000;
+}
+
+.video-box.video-off .profile-photo {
+    display: block;
+}
+
+.video-box.video-off video {
+    display: none;
+}
+
+/* Ajuste para o vídeo secundário */
+.video-box.secondary .profile-photo {
+    width: 100px;
+    height: 100px;
+}
+
+.message {
+    max-width: 80%;
+    margin: 4px 0;
+    padding: 8px 12px;
+    border-radius: 15px;
+}
+
+.message.sent {
+    align-self: flex-end;
+    background-color: #007bff;
+    color: white;
+    margin-left: auto;
+}
+
+.message.received {
+    align-self: flex-start;
+    background-color: #444;
+    color: white;
+}
+
+.message-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-text {
+    word-break: break-word;
+}
+
+.message-sender {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.message-time {
+    font-size: 0.7em;
+    opacity: 0.7;
+    margin-top: 2px;
+    text-align: right;
+}
+
+/* Container principal */
+.main-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+/* Container do vídeo */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.video-container.chat-hidden {
+    width: 100%;
+}
+
+.video-container:not(.chat-hidden) {
+    width: calc(100% - 300px);
+}
+
+/* Container do chat */
+.chat-container {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 300px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    border-left: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    z-index: 100;
+}
+
+.chat-container.hidden {
+    transform: translateX(300px);
+}
+
+/* Área de mensagens do chat */
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+/* Mensagens individuais */
+.message {
+    margin-bottom: 10px;
+    max-width: 80%;
+}
+
+.message.sent {
+    margin-left: auto;
+}
+
+.message.received {
+    margin-right: auto;
+}
+
+.message-content {
+    padding: 8px 12px;
+    border-radius: 15px;
+    background: #f0f0f0;
+    position: relative;
+}
+
+.message.sent .message-content {
+    background: #007bff;
+    color: white;
+}
+
+.message-sender {
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.message-time {
+    font-size: 0.7em;
+    color: #666;
+    margin-top: 2px;
+}
+
+.message.sent .message-time {
+    text-align: right;
+    color: #ccc;
+}
+
+/* Área de input do chat */
+.chat-input {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    background: #fff;
+}
+
+#messageInput {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+}
+
+/* Wrapper do vídeo */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos dos vídeos */
+#localVideo, #remoteVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Estilos da foto de perfil */
+.profile-picture {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    z-index: 2;
+}
+
+.video-off .profile-picture {
+    display: block;
+}
+
+/* Botão de toggle do chat */
+#toggleChat {
+    position: static; /* Remove posicionamento fixo */
+    margin-left: 10px; /* Espaço entre os botões */
+}
+
+#toggleChat.chat-hidden {
+    right: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .video-container:not(.chat-hidden) {
+        width: 100%;
+    }
+
+    .chat-container {
+        width: 100%;
+    }
+
+    .chat-container.hidden {
+        transform: translateX(100%);
+    }
+
+    #toggleChat {
+        right: 20px;
+    }
+}
+
+/* Efeito hover nas mensagens */
+.message-content:hover {
+    filter: brightness(95%);
+}
+
+/* Animação suave ao aparecer novas mensagens */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Adicionar aos estilos existentes dos botões */
+.control-btn.sharing {
+    background: #28a745;
+}
+
+.control-btn.sharing:hover {
+    background: #218838;
+}
+
+/* Ajuste para o ícone de stop */
+.fa-stop-circle {
+    color: #dc3545;
+}
+  

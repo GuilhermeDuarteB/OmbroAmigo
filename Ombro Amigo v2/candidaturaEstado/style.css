@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    list-style: none;
+}
+
+body {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    background: linear-gradient(#ffffff, #599BCE);
+}
+
+nav {
+    /* header do site */
+    position: absolute;
+    top: 0;
+    background: #0F94FA;
+    /* Cor teste precisamos alterar */
+    height: 120px;
+    width: 100%;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+nav ul {
+    float: right;
+    margin-right: 20px;
+}
+
+nav ul li {
+    display: inline-block;
+    line-height: 120px;
+    margin: 0 5px;
+}
+
+nav ul li a {
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    padding: 7px 13px;
+    border-radius: 10px;
+    text-transform: uppercase;
+
+}
+
+a.active,
+a:hover {
+    background: none;
+    color: #4FD6E8;
+    transition: .10s;
+}
+
+a.linklogo:active,
+a.linklogo:hover {
+    background: transparent;
+}
+
+
+.logo img {
+    filter: grayscale(100%);
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    width: 100px;
+    height: auto;
+    transition:
+        transform 750ms ease-out,
+        filter 250ms ease-in-out;
+}
+
+.logo:hover img {
+    filter: grayscale(0%);
+}
+
+.checkbtn {
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+    line-height: 115px;
+    margin-left: calc(100% - 40px);
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 5%;
+    z-index: 999;
+}
+
+.btncheck.fixed {
+    position: fixed;
+}
+
+#check {
+    display: none;
+}
+
+.container {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    margin-top: -5%;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    width: 25%;
+    display: flex;
+    flex-direction: column; /* Flexbox para alinhar os elementos em coluna */
+    justify-content: center; /* Alinhar ao centro verticalmente */
+    align-items: center; /* Alinhar ao centro horizontalmente */
+}
+
+
+.container p {
+    font-size: 17px;
+    margin-top: 2%;
+    text-align: center;
+}
+
+#nome{
+    margin-bottom: 10px;
+}
+
+.container a {
+    margin: 10px 5px; 
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #0F94FA;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.container a:hover {
+    background-color: #4FD6E8;
+}
+
+#X{
+    font-size: 70px;
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+    color: #0F94FA;
+}

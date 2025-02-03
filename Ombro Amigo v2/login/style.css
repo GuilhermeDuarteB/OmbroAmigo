@@ -1,0 +1,512 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    list-style: none;
+}
+
+body {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    background: linear-gradient(#ffffff, #599BCE);
+}
+
+.container {
+    background-color: #ffffff;
+    border-radius: 40px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 600px;
+    width: 60%;
+    padding: 10px;
+    margin-top: 5%;
+}
+
+.container p {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.3px;
+    margin: 20px 0;
+}
+
+.container span {
+    font-size: 15px;
+}
+
+.container a {
+    color: #686767;
+    text-decoration: none;
+    margin-top: -5%;
+    margin-bottom: 15px;
+}
+
+#btnseguinte {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2caabb;
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: center;
+    height: auto;
+    width: auto;
+}
+
+
+.container button.hidden {
+    background-color: transparent;
+    border-color: #fff;
+}
+
+.container form {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+}
+
+.container input {
+
+    background-color: #ffffff;
+    border: black;
+    margin: 8px 0;
+    padding: 10px 15px;
+    font-size: 13px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+.sign-in {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.container.active .sign-in {
+    transform: translateX(100%);
+}
+
+.sign-up {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.container.active .sign-up {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: move 0.6s;
+}
+
+.btnseg {
+    margin-top: 50px;
+}
+
+
+@keyframes move {
+
+    0%,
+    49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+.social-icons {
+    margin: 20px 0;
+}
+
+.social-icons a {
+    border: 1px solid #ccc;
+    border-radius: 20%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 3px;
+    width: 40px;
+    height: 40px;
+}
+
+.toggle-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.6s ease-in-out;
+    border-radius: 150px 0 0 100px;
+    z-index: 1000;
+}
+
+.container.active .toggle-container {
+    transform: translateX(-100%);
+    border-radius: 0 150px 100px 0;
+}
+
+.toggle {
+    background-color: #000000;
+    height: 100%;
+    background: linear-gradient(to right, #6288FA, #0F94FA);
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+.container.active .toggle {
+    transform: translateX(50%);
+}
+
+.toggle-panel {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 30px;
+    text-align: center;
+    top: 0;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+.toggle-left {
+    transform: translateX(-200%);
+}
+
+.container.active .toggle-left {
+    transform: translateX(0);
+}
+
+.toggle-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.container.active .toggle-right {
+    transform: translateX(200%);
+}
+
+nav {
+    /* header do site */
+    position: absolute;
+    top: 0;
+    background: #0F94FA;
+    /* Cor teste precisamos alterar */
+    height: 120px;
+    width: 100%;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+nav ul {
+    float: right;
+    margin-right: 20px;
+}
+
+nav ul li {
+    display: inline-block;
+    line-height: 120px;
+    margin: 0 5px;
+}
+
+nav ul li a {
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    padding: 7px 13px;
+    border-radius: 10px;
+    text-transform: uppercase;
+
+}
+
+a.active,
+a:hover {
+    background: none;
+    color: #4FD6E8;
+    transition: .10s;
+}
+
+a.linklogo:active,
+a.linklogo:hover {
+    background: transparent;
+}
+
+
+.logo img {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    width: 100px;
+    height: auto;
+}
+
+.checkbtn {
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+    line-height: 115px;
+    margin-left: calc(100% - 40px);
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 5%;
+    z-index: 999;
+}
+
+.btncheck.fixed {
+    position: fixed;
+}
+
+#check {
+    display: none;
+}
+
+section {
+    background-color: #ffffff;
+    background-size: cover;
+    height: 100vh;
+}
+
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    flex-flow: column;
+}
+
+.form-group {
+    position: relative;
+    margin: 12px 0;
+}
+
+.form-group input {
+    padding: 8px 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: #2caabb solid 2px;
+    background-color: transparent;
+    color: black;
+    transition: 0.15s all ease;
+}
+
+
+.form-group input:focus {
+    border-color: #2caabb;
+}
+
+.form-group input::placeholder {
+    color: transparent;
+}
+
+.form-group .form-label {
+    position: absolute;
+    top: 9px;
+    left: 0;
+    font-size: 15px;
+    padding: 0 10px;
+    color: #686767;
+    pointer-events: none;
+    transition: 0.15s all ease;
+}
+
+.form-group input:focus+.form-label,
+.form-group input:not(:placeholder-shown)+.form-label {
+    transform: translate(5px, -22px);
+    background-color: #2caabb;
+    font-size: 14px;
+    color: #ffffff;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.section2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    flex-flow: column;
+}
+
+.form-group2 {
+    position: relative;
+    margin-top: 8%;
+}
+
+
+
+.form-group2 input {
+    width: 90%;
+    padding: 8px 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: #2caabb solid 2px;
+    background-color: transparent;
+    color: black;
+    transition: 0.15s all ease;
+}
+
+#btnProf {
+    margin-top: 5%;
+    margin-left: 25%;
+}
+
+.form-group2 input p {
+    color: red;
+}
+
+.form-group2 input:focus {
+    border-color: #2caabb;
+}
+
+.form-group2 input::placeholder {
+    color: transparent;
+}
+
+.form-group2 .form-label2 {
+    position: absolute;
+    top: 9px;
+    left: 0;
+    font-size: 15px;
+    padding: 0 10px;
+    color: #686767;
+    pointer-events: none;
+    transition: 0.15s all ease;
+    text-align: center;
+}
+
+.form-group2 input:focus+.form-label2,
+.form-group2 input:not(:placeholder-shown)+.form-label2 {
+
+    transform: translate(5px, -22px);
+    background-color: #2caabb;
+    font-size: 14px;
+    color: #ffffff;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+#confMsg {
+    display: inline-block;
+    color: #ffffff;
+
+}
+
+
+@media screen and (max-width: 768px) {
+    /* config site minimizado */
+
+    .logo img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .checkbtn {
+        display: block;
+    }
+
+    ul {
+        border-radius: 0px;
+        position: absolute;
+        width: 100%;
+        height: 110vh;
+        background-image: linear-gradient(#8ecae6, #BCCEED, #6D74ED), url(background.jpg);
+        top: 0%;
+        left: -100%;
+        text-align: center;
+        transition: all .5s;
+        z-index: 998;
+        /* Reduzindo o z-index do menu para que o checkbtn fique acima */
+
+    }
+
+    nav ul li {
+        display: block;
+        margin: 50 px 0;
+    }
+
+    nav ul li a {
+        font-size: 20px;
+    }
+
+    a:hover,
+    a:active {
+        background: none;
+        color: #0082e6;
+        transition: .10s;
+    }
+
+    #check:checked~ul {
+        left: 0;
+    }
+
+}
+
+.message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}

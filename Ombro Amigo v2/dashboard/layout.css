@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+body{
+  min-height: 100vh;
+  background: linear-gradient(#70b4a7, #3398b6);
+  background-attachment: fixed;
+}
+
+nav{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  height: 100vh;
+  left: 0;
+  background: #fff;
+  width: 90px;
+  overflow: hidden;
+  transition: width 0.2s linear;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+
+.logo{
+  display: flex;
+  align-items: center;
+  transition: all 0.5s ease;
+}
+
+.logo:hover{
+  background: none;
+}
+
+.logo img{
+  width: 70px;
+  height:80px;
+  border-radius: 50%;
+}
+
+.logo span{
+  font-weight: bold;
+  top: 0;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+nav a{
+  position: relative;
+  color: rgb(85,83,83);
+  font-size: 14px;
+  display: table;
+  width: 300px;
+  padding: 10px;
+}
+
+.fas{
+  position: relative;
+  width: 70px;
+  height: 40px;
+  top: 14px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.nav-item{
+  position: relative;
+  top: 12px;
+  margin-left: 10px;
+}
+
+nav a:hover{
+  background: #eee;
+}
+
+nav:hover{
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  width: 290px;
+  transition: all 0.5s  ease;
+}
+
+.noti{
+  position: absolute;
+  bottom: 50px;
+}
+
+.logout{
+  position: absolute;
+  bottom: 0;
+}
+
+.fotoAcc{
+  position: absolute;
+  bottom: 120px;
+}
+
+.fotoAcc img{
+  top: 14px;
+  left: 8%;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-bottom: 1%;
+}
+
+.nav-item2{
+  margin-left: 19%;
+  text-align: center;
+}
+
+.container {
+    position: relative;
+}
+
+@media (max-height: 600px) {
+    nav {
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        width: 70px;
+    }
+    
+    nav:hover {
+        width: 70px;
+    }
+}

@@ -1,0 +1,227 @@
+.main-container {
+    margin-left: 300px;
+    padding: 20px;
+}
+
+.header-section {
+    background: linear-gradient(to right, #ffffff, #f8f9fa);
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.header-section h1 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+    border-left: 5px solid #007bff;
+    padding-left: 15px;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.filter-btn:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,123,255,0.3);
+}
+
+.consultas-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.consulta-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.consulta-card:hover {
+    transform: translateY(-5px);
+}
+
+.consulta-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9em;
+}
+
+.status-badge.pendente {
+    background-color: #ffd700;
+    color: #000;
+}
+
+.status-badge.aceite {
+    background-color: #28a745;
+    color: white;
+}
+
+.status-badge.realizada {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.status-badge.recusada {
+    background-color: #dc3545;
+    color: white;
+}
+
+.status-badge.acabada {
+    background-color: #dc3545;
+    color: white;
+}
+
+.consulta-card.recusada {
+    border: 2px solid #dc3545;
+    background-color: #f8d7da;
+}
+
+.consulta-card.acabada {
+    border: 2px solid #dc3545;
+    background-color: #f8d7da;
+}
+
+.data {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.consulta-body h3 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.especialidade {
+    color: #666;
+    font-style: italic;
+}
+
+.action-btn.details {
+    width: auto;
+    padding: 8px 15px;
+    margin-top: 15px;
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.action-btn.details:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+/* Estilos para o modal */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5em;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+.start-call-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.start-call-btn:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.start-call-btn i {
+    font-size: 1.2em;
+}

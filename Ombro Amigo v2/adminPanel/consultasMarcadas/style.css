@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: linear-gradient(#75bcf3, #599BCE);
+    min-height: 100vh;
+    display: flex;
+    position: relative;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    background: linear-gradient(#75bcf3, #599BCE);
+    padding: 2rem;
+    padding-left: 110px;
+    min-height: 100vh;
+    width: calc(100% - 90px);
+    margin-left: 90px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Menu de Navegação */
+nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    width: 90px;
+    height: 100vh;
+    overflow: hidden;
+    transition: width 0.2s linear;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+
+.logo:hover {
+    background: none;
+}
+
+.logo img {
+    width: 70px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.logo span {
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+nav ul li a {
+    position: relative;
+    color: rgb(85,83,83);
+    font-size: 14px;
+    display: table;
+    width: 300px;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.fas {
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 14px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.nav-item {
+    position: relative;
+    top: 12px;
+    margin-left: 10px;
+}
+
+nav:hover {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 290px;
+    transition: all 0.5s ease;
+}
+
+.logout {
+    position: absolute;
+    bottom: 0;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    color: #333;
+    font-size: 1.8rem;
+}
+
+/* Tabela */
+.table-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-table th {
+    background: #f8f9fa;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #1a237e;
+}
+
+.user-table td {
+    padding: 1rem;
+    border-top: 1px solid #eee;
+    vertical-align: middle;
+}
+
+/* Informações do usuário */
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.user-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.user-email {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* Status badges */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-agendada {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.status-concluida {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-cancelada {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+/* Link da consulta */
+.link-consulta {
+    color: #1a237e;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.link-consulta:hover {
+    color: #283593;
+}
+
+.no-link {
+    color: #999;
+    font-size: 0.85rem;
+}
+
+/* Botões de ação */
+.actions {
+    text-align: center;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-delete {
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 6px;
+    background: #dc3545;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    .user-table {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 1rem;
+        padding-left: 100px;
+    }
+
+    .user-table {
+        font-size: 0.8rem;
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .status-badge {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+}
