@@ -83,3 +83,22 @@ function updateCharac() {
 // Chama a função ao carregar a página e ao digitar no textarea
 updateCharac();
 textArea.addEventListener("keyup", updateCharac);
+
+// Navegação entre seções (simplificada sem subscrições)
+document.querySelectorAll('.settings-menu li').forEach(item => {
+    item.addEventListener('click', function() {
+        if (this.classList.contains('apagar-conta')) {
+            showDeleteModal();
+            return;
+        }
+        
+        document.querySelectorAll('.settings-menu li').forEach(i => i.classList.remove('active'));
+        document.querySelectorAll('.settings-section').forEach(s => s.classList.remove('active'));
+        
+        this.classList.add('active');
+        
+        const sectionId = this.className.split(' ')[0] + 'Section';
+        const section = document.getElementById(sectionId);
+        if (section) section.classList.add('active');
+    });
+});

@@ -246,6 +246,7 @@ nav {
     width: 100%;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
+    z-index: 2000;
 }
 
 nav ul {
@@ -496,17 +497,82 @@ section {
 }
 
 .message {
-    background-color: #f8d7da;
-    color: #721c24;
+    background-color: #E8F0FE;
+    color: #0F94FA;
     padding: 15px;
     margin-bottom: 20px;
-    border: 1px solid #f5c6cb;
+    border: 1px solid #599BCE;
     border-radius: 5px;
     text-align: center;
 }
 
 .message.success {
-    background-color: #d4edda;
-    color: #155724;
-    border-color: #c3e6cb;
+    background-color: #E8F0FE;
+    color: #0F94FA;
+    border-color: #599BCE;
+}
+
+#errorMessage {
+    display: none;
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    background-color: #FF4B4B !important;
+    color: white !important;
+    padding: 12px 15px !important;
+    border-radius: 6px !important;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1) !important;
+    z-index: 9999 !important;
+    min-width: 180px !important;
+    max-width: 300px !important;
+    font-size: 14px !important;
+    transform-origin: right !important;
+    overflow: hidden !important;
+}
+
+.error-progress {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 3px !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    border-radius: 6px 6px 0 0 !important;
+    transform-origin: left !important;
+    animation: countdown 10s linear !important;
+}
+
+@keyframes countdown {
+    0% {
+        transform: scaleX(1);
+    }
+    100% {
+        transform: scaleX(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.error-hiding {
+    animation: slideOut 0.5s ease forwards !important;
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
 }

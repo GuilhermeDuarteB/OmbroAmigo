@@ -72,8 +72,8 @@ include '../connection.php';
         </h2>
         <div class="t1">
             <p>
-                Aqui no Ombro Amigo tens toda a ajuda necessária para cuidar <br>
-                da tua saúde física e <b>principalmente mental.</b>
+                Aqui no Ombro Amigo tem toda a ajuda necessária para cuidar <br>
+                da sua saúde física e <b>principalmente mental.</b>
             </p>
         </div>
     </div>
@@ -97,9 +97,9 @@ include '../connection.php';
                 </h2>
                 <div class="t2">
                    <p>Através de uma subscrição de um dos <a href="../planos/index.php">nossos planos</a>
-                    terás acesso imediato a todos os nossos <b>  serviços de Psicologia, Nutricionismo,
+                    terá acesso imediato a todos os nossos <b>  serviços de Psicologia, Nutricionismo,
                     Psiquiatria e Medicina Geral completamente online! </b> <br>
-                    Conheçe mais sobre o <a href="../quem somos/index.php">Projeto Ombro Amigo</a>
+                    Conheça mais sobre o <a href="../quem somos/index.php">Projeto Ombro Amigo</a>
                    </p>
                 </div>
             </div>

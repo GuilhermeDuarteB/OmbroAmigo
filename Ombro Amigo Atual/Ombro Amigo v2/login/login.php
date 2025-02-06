@@ -2,6 +2,8 @@
 session_start();
 include '../connection.php';
 
+header('Content-Type: application/json');
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $PalavraPasse = $_POST['PalavraPasse'];
@@ -10,8 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($email === "admin@admin" && $PalavraPasse === "admin123") {
         $_SESSION['user_id'] = 'admin';
         $_SESSION['user_name'] = 'Administrador';
-        $_SESSION['user_type'] = 'admin'; // Armazenar tipo de usuário
-        header("Location: ../adminPanel/usersPanel/UserPanel.php");
+        $_SESSION['user_type'] = 'admin';
+        echo json_encode(['success' => true, 'redirect' => '../adminPanel/usersPanel/UserPanel.php']);
         exit();
     }
 
@@ -27,24 +29,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user) {
         $_SESSION['user_id'] = $user['Id'];
         $_SESSION['user_name'] = $user['Nome'];
-        $_SESSION['user_type'] = 'user'; // Armazenar tipo de usuário
+        $_SESSION['user_type'] = 'user';
+        $_SESSION['user_photo'] = $user['Foto'] ? base64_encode($user['Foto']) : null;
 
-        // Buscar a foto do usuário
-        $_SESSION['user_photo'] = $user['Foto'] ? base64_encode($user['Foto']) : null; // Armazena a foto em base64
-
-        // Verifica o tipo de usuário e redireciona para a página apropriada
+        $redirect = '';
         if ($user['Tipo'] == 'admin') {
-            header("Location: ../adminPanel/usersPanel/UserPanel.php");
+            $redirect = '../adminPanel/usersPanel/UserPanel.php';
         } elseif ($user["Tipo"] == "user") {
-            header("Location: ../dashboard/dashinicial/index.php");
+            $redirect = '../dashboard/dashinicial/index.php';
         } elseif ($user["Tipo"] == "desativada") {
-            header("Location: ../reativarAcc/index.php "); 
+            $redirect = '../reativarAcc/index.php';
         }
-        exit();
+
+        echo json_encode(['success' => true, 'redirect' => $redirect]);
     } else {
-        echo "Senha inválida!";
+        echo json_encode(['success' => false, 'message' => 'Email ou senha incorretos']);
     }
 } else {
-    echo "E-mail não encontrado!";
+    echo json_encode(['success' => false, 'message' => 'Método inválido']);
 }
 ?>

@@ -64,7 +64,7 @@ include("../../connection.php");
         </h1>
         <p>
             Identificar e lidar com um ataque de pânico pode ser uma
-            experiência horrível e desafiadora, <br> aqui irás encontrar algumas
+            experiência horrível e desafiadora, <br> aqui poderá encontrar algumas
             recomendações de como identificar e lidar com o pânico!
         </p>
     </div>
@@ -100,13 +100,13 @@ include("../../connection.php");
                 <h2>Passo-a-Passo</h2>
                 <p>Coloque-se de forma confortável com a postura ereta (sentado ou deitado).</p>
                 <p>Coloque a mão na barriga próxima ao umbigo.</p>
-                <p>Fecha os olhos e concentra-te na respiração.</p>
-                <p>Repara que quando inspira a barriga desce e quando expiras a barriga sobe</p>
-                <p>Tenta realizar o movimento contrário: a barriga subir ao inspirar e descer ao expirar</p>
-                <p>Agora, inspira lentamente pelo nariz, a contar até <b>quatro</b>. Sente o ar encher os pulmões e a barriga subir</p>
-                <p>Segura a respiração durante <b>dois segundos</b></p>
-                <p>Expira lentamente pelo boca, a contar até <b>seis</b>. Enquanto esvazias o pulmão percebe a barriga a baixar.</p>
-                <p>Repete a técnica <b>10 vezes</b> e lembra-te que terá maior efeito a <b>praticar diariamente</b></p>
+                <p>Feche os olhos e concentre-se na respiração.</p>
+                <p>Repare que quando inspira a barriga desce e quando expira a barriga sobe</p>
+                <p>Tente realizar o movimento contrário: a barriga subir ao inspirar e descer ao expirar</p>
+                <p>Agora, inspire lentamente pelo nariz, a contar até <b>quatro</b>. Sinta o ar encher os pulmões e a barriga subir</p>
+                <p>Segure a respiração durante <b>dois segundos</b></p>
+                <p>Expire lentamente pela boca, a contar até <b>seis</b>. Enquanto esvazia o pulmão, perceba a barriga a baixar.</p>
+                <p>Repita a técnica <b>10 vezes</b> e lembre-se que terá maior efeito a <b>praticar diariamente</b></p>
                 <h2>Vídeo de Ajuda</h2>
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/2cufeBFlkq8?si=gfLsSNkrPAjd_d_7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
