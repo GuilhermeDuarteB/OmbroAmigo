@@ -34,24 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Ler o conteúdo do arquivo
         $foto = file_get_contents($fileTmpPath);
         
-        // Converter para base64 para debug
-        $base64 = base64_encode($foto);
-        error_log("Tamanho da imagem em base64: " . strlen($base64));
-
         try {
-            // Primeiro, verificar se já existe uma foto
-            $checkQuery = "SELECT Foto FROM Utilizadores WHERE Id = ?";
-            $checkStmt = $conn->prepare($checkQuery);
-            $checkStmt->execute([$user_id]);
+            // Query com CONVERT explícito para varbinary
+            $updateQuery = "UPDATE Utilizadores SET Foto = CONVERT(varbinary(max), ?) WHERE Id = ?";
             
-            if ($checkStmt->fetch()) {
-                // Update existente
-                $updateQuery = "UPDATE Utilizadores SET Foto = ? WHERE Id = ?";
-            } else {
-                // Insert novo
-                $updateQuery = "UPDATE Utilizadores SET Foto = ? WHERE Id = ?";
-            }
-
             $updateStmt = $conn->prepare($updateQuery);
             $updateStmt->bindParam(1, $foto, PDO::PARAM_LOB);
             $updateStmt->bindParam(2, $user_id);
@@ -68,9 +54,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             die("Erro ao processar a foto: " . $e->getMessage());
         }
     } else {
-        die("Erro no upload da imagem: " . $_FILES['pfp']['error']);
+        $error = isset($_FILES['pfp']) ? $_FILES['pfp']['error'] : 'Arquivo não enviado';
+        error_log("Erro no upload: " . $error);
+        die("Erro no upload da imagem: " . $error);
     }
 } else {
-    echo "Método não suportado.";
+    header("Location: conta.php");
+    exit();
 }
 ?>

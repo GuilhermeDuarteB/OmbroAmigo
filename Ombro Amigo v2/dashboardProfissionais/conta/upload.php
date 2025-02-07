@@ -13,37 +13,52 @@ $user_id = $_SESSION['user_id'];
 
 // Verifica se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Verifica se uma nova foto de perfil foi enviada
     if (isset($_FILES['pfp']) && $_FILES['pfp']['error'] === UPLOAD_ERR_OK) {
-        // Lê o conteúdo do arquivo da imagem como binário
         $fileTmpPath = $_FILES['pfp']['tmp_name'];
+        
+        // Verificar o tipo de arquivo
+        $fileType = mime_content_type($fileTmpPath);
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        
+        if (!in_array($fileType, $allowedTypes)) {
+            die("Tipo de arquivo não permitido. Apenas JPEG, PNG e GIF são aceitos.");
+        }
 
-        // Lê o conteúdo do arquivo
+        // Processar a imagem
+        $imageInfo = getimagesize($fileTmpPath);
+        if ($imageInfo === false) {
+            die("Arquivo não é uma imagem válida.");
+        }
+
+        // Ler o conteúdo do arquivo
         $foto = file_get_contents($fileTmpPath);
-
-        // Atualiza a foto no banco de dados
-        $updateQuery = "UPDATE UtilizadoresProfissionais SET Foto = CONVERT(varbinary(max), :foto) WHERE Id = :Id";
-        $updateStmt = $conn->prepare($updateQuery);
-
-        // Define o parâmetro como um string binário
-        $updateStmt->bindParam(':foto', $foto, PDO::PARAM_LOB);  // LOB para dados binários
-        $updateStmt->bindParam(':Id', $user_id);
-
-        // Tenta executar a consulta
+        
         try {
+            // Query com CONVERT explícito para varbinary
+            $updateQuery = "UPDATE UtilizadoresProfissionais SET Foto = CONVERT(varbinary(max), ?) WHERE Id = ?";
+            
+            $updateStmt = $conn->prepare($updateQuery);
+            $updateStmt->bindParam(1, $foto, PDO::PARAM_LOB);
+            $updateStmt->bindParam(2, $user_id);
+
             if ($updateStmt->execute()) {
-                // Redireciona para a página de conta após o upload
                 header("Location: conta.php");
                 exit();
+            } else {
+                error_log("Erro ao executar query: " . print_r($updateStmt->errorInfo(), true));
+                die("Erro ao atualizar foto no banco de dados.");
             }
         } catch (PDOException $e) {
-            // Trata o erro
-            echo "Erro ao atualizar a foto: " . $e->getMessage();
+            error_log("Erro PDO: " . $e->getMessage());
+            die("Erro ao processar a foto: " . $e->getMessage());
         }
     } else {
-        echo "Erro no upload da imagem.";
+        $error = isset($_FILES['pfp']) ? $_FILES['pfp']['error'] : 'Arquivo não enviado';
+        error_log("Erro no upload: " . $error);
+        die("Erro no upload da imagem: " . $error);
     }
 } else {
-    echo "Método não suportado.";
+    header("Location: conta.php");
+    exit();
 }
 ?>
