@@ -69,41 +69,18 @@ async function iniciarVideo() {
 
 async function iniciarConexaoPeer() {
     try {
+        // Criar nova conexão
         peerConnection = new RTCPeerConnection(configuration);
         
-        // Logging mais detalhado
-        peerConnection.onicegatheringstatechange = () => {
-            console.log('ICE gathering state:', peerConnection.iceGatheringState);
-        };
-
-        peerConnection.oniceconnectionstatechange = () => {
-            console.log('ICE connection state:', peerConnection.iceConnectionState);
-            handleConnectionStateChange();
-        };
-
-        peerConnection.onconnectionstatechange = () => {
-            console.log('Connection state:', peerConnection.connectionState);
-            handleConnectionStateChange();
-        };
-
-        // Adicionar tracks locais com restrições específicas
-        localStream.getTracks().forEach(track => {
-            const sender = peerConnection.addTrack(track, localStream);
-            if (track.kind === 'video') {
-                sender.setParameters({
-                    encodings: [
-                        { maxBitrate: 100000 }, // Reduzir bitrate inicial
-                        { maxBitrate: 500000 },
-                        { maxBitrate: 1500000 }
-                    ]
-                });
-            }
-        });
-        
-        // Configurar handlers de eventos
+        // Primeiro configurar os handlers de eventos
         configurarEventHandlers();
         
-        // Iniciar oferta se for o profissional
+        // Depois adicionar as tracks com configurações simplificadas
+        localStream.getTracks().forEach(track => {
+            peerConnection.addTrack(track, localStream);
+        });
+        
+        // Se for o profissional, criar oferta
         if (tipoUsuario === 'profissional') {
             console.log('Criando oferta como profissional');
             await criarOfertar();
@@ -642,11 +619,18 @@ async function tentarReconectar() {
 
 // Função para configurar handlers de eventos
 function configurarEventHandlers() {
+    if (!peerConnection) {
+        console.error('PeerConnection não inicializada');
+        return;
+    }
+
     // Handler para vídeo remoto
     peerConnection.ontrack = event => {
         console.log('Track remoto recebido:', event.track.kind);
         const remoteVideo = document.getElementById('remoteVideo');
-        remoteVideo.srcObject = event.streams[0];
+        if (remoteVideo) {
+            remoteVideo.srcObject = event.streams[0];
+        }
     };
 
     // Handler para ICE candidates
@@ -656,24 +640,39 @@ function configurarEventHandlers() {
             enviarSinalização({
                 type: 'ice-candidate',
                 candidate: event.candidate,
-                consultaId: consultaId
+                consultaId: consultaId,
+                idDestinatario: tipoUsuario === 'profissional' ? consulta.IdUtilizador : consulta.IdProfissional,
+                tipoRemetente: tipoUsuario,
+                tipoDestinatario: tipoUsuario === 'profissional' ? 'user' : 'profissional'
             });
         }
     };
 
-    // Handler para mudanças de estado da conexão
+    // Logging de estados
+    peerConnection.onicegatheringstatechange = () => {
+        console.log('ICE gathering state:', peerConnection.iceGatheringState);
+    };
+
+    peerConnection.oniceconnectionstatechange = () => {
+        console.log('ICE connection state:', peerConnection.iceConnectionState);
+        handleConnectionStateChange();
+    };
+
     peerConnection.onconnectionstatechange = () => {
-        console.log('Connection State:', peerConnection.connectionState);
+        console.log('Connection state:', peerConnection.connectionState);
+        handleConnectionStateChange();
     };
 }
 
 function handleConnectionStateChange() {
+    if (!peerConnection) return;
+
     const iceState = peerConnection.iceConnectionState;
     const connState = peerConnection.connectionState;
     
     console.log(`Estado da conexão - ICE: ${iceState}, Connection: ${connState}`);
 
-    if (iceState === 'failed' || connState === 'failed') {
+    if (iceState === 'failed' || connState === 'failed' || iceState === 'disconnected') {
         if (!isReconnecting) {
             console.log('Conexão falhou. Iniciando processo de reconexão...');
             tentarReconectar();
@@ -682,5 +681,18 @@ function handleConnectionStateChange() {
         console.log('Conexão estabelecida com sucesso');
         isReconnecting = false;
         reconnectionAttempts = 0;
+
+        // Processar ICE candidates armazenados
+        if (iceCandidatesBuffer.length > 0) {
+            console.log('Processando ICE candidates armazenados:', iceCandidatesBuffer.length);
+            iceCandidatesBuffer.forEach(async (candidate) => {
+                try {
+                    await peerConnection.addIceCandidate(candidate);
+                } catch (error) {
+                    console.error('Erro ao adicionar ICE candidate do buffer:', error);
+                }
+            });
+            iceCandidatesBuffer = [];
+        }
     }
 }
