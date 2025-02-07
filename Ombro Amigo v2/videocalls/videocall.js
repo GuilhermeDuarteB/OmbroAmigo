@@ -5,23 +5,28 @@ const ACS_CREDENTIAL = 'YC4NNvgEJwKhADhuCW6vuA4wtuu7hOTS9CLUDnt6QbiHDSV4IEMgJQQJ
 
 const configuration = {
     iceServers: [
-        // Servidores STUN básicos como fallback
+        // Servidores STUN mais robustos
         { urls: 'stun:stun.l.google.com:19302' },
         { urls: 'stun:stun1.l.google.com:19302' },
+        { urls: 'stun:stun2.l.google.com:19302' },
+        { urls: 'stun:stun3.l.google.com:19302' },
+        { urls: 'stun:stun4.l.google.com:19302' },
         
-        // TURN via UDP
+        // Configuração mais robusta do TURN Azure
         {
-            urls: [`turn:${ACS_ENDPOINT}:3478?transport=udp`],
-            username: ACS_CREDENTIAL,
-            credential: ACS_CREDENTIAL
-        },
-        // TURN via TCP
-        {
-            urls: [`turn:${ACS_ENDPOINT}:3478?transport=tcp`],
+            urls: [
+                `turn:${ACS_ENDPOINT}:3478?transport=udp`,
+                `turn:${ACS_ENDPOINT}:3478?transport=tcp`,
+                `turns:${ACS_ENDPOINT}:443?transport=tcp`  // TURN sobre TLS
+            ],
             username: ACS_CREDENTIAL,
             credential: ACS_CREDENTIAL
         }
-    ]
+    ],
+    iceCandidatePoolSize: 10,
+    iceTransportPolicy: 'all',
+    bundlePolicy: 'max-bundle',
+    rtcpMuxPolicy: 'require'
 };
 
 let screenStream = null;
@@ -66,9 +71,33 @@ async function iniciarConexaoPeer() {
     try {
         peerConnection = new RTCPeerConnection(configuration);
         
-        // Adicionar tracks locais
+        // Logging mais detalhado
+        peerConnection.onicegatheringstatechange = () => {
+            console.log('ICE gathering state:', peerConnection.iceGatheringState);
+        };
+
+        peerConnection.oniceconnectionstatechange = () => {
+            console.log('ICE connection state:', peerConnection.iceConnectionState);
+            handleConnectionStateChange();
+        };
+
+        peerConnection.onconnectionstatechange = () => {
+            console.log('Connection state:', peerConnection.connectionState);
+            handleConnectionStateChange();
+        };
+
+        // Adicionar tracks locais com restrições específicas
         localStream.getTracks().forEach(track => {
-            peerConnection.addTrack(track, localStream);
+            const sender = peerConnection.addTrack(track, localStream);
+            if (track.kind === 'video') {
+                sender.setParameters({
+                    encodings: [
+                        { maxBitrate: 100000 }, // Reduzir bitrate inicial
+                        { maxBitrate: 500000 },
+                        { maxBitrate: 1500000 }
+                    ]
+                });
+            }
         });
         
         // Configurar handlers de eventos
@@ -276,11 +305,11 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Botão de encerrar clicado'); // Debug
         
         if (confirm('Deseja realmente acabar a consulta?')) {
-            console.log('Usuário confirmou'); // Debug
+            console.log('Utilizador confirmou'); // Debug
             
             try {
                 if (tipoUsuario === 'profissional') {
-                    console.log('Usuário é profissional, acabando consulta...'); // Debug
+                    console.log('Utilizador é profissional, a terminar consulta...'); // Debug
                     
                     // Aguarda a resposta da finalização da consulta
                     const response = await fetch('acabar_consulta.php', {
@@ -318,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.close();
             }
         } else {
-            console.log('Usuário cancelou'); // Debug
+            console.log('Utilizador cancelou'); // Debug
         }
     });
 
@@ -379,9 +408,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         const localVideo = document.getElementById('localVideo');
                         localVideo.srcObject = screenStream;
 
-                        // Eventos para quando o usuário parar o compartilhamento
+                        // Eventos para quando o Utilizador parar o compartilhamento
                         screenTrack.onended = async () => {
-                            console.log('Compartilhamento de tela encerrado pelo usuário'); // Debug
+                            console.log('Compartilhamento de tela encerrado pelo Utilizador'); // Debug
                             await stopScreenSharing();
                         };
 
@@ -550,21 +579,17 @@ function encerrarChamada() {
     }
 }
 
-// Função para monitorar estado da conexão
+// Monitoramento do estado da conexão
 peerConnection.oniceconnectionstatechange = () => {
-    console.log('ICE Connection State:', peerConnection.iceConnectionState);
-    
     switch (peerConnection.iceConnectionState) {
         case 'disconnected':
         case 'failed':
             if (!isReconnecting) {
-                console.log('Conexão perdida. Tentando reconectar...');
                 tentarReconectar();
             }
             break;
         case 'connected':
         case 'completed':
-            console.log('Conexão estabelecida/restaurada');
             isReconnecting = false;
             reconnectionAttempts = 0;
             break;
@@ -574,8 +599,8 @@ peerConnection.oniceconnectionstatechange = () => {
 // Função para tentar reconexão
 async function tentarReconectar() {
     if (reconnectionAttempts >= MAX_RECONNECTION_ATTEMPTS) {
-        console.log('Número máximo de tentativas de reconexão atingido');
-        alert('Não foi possível reconectar. Por favor, recarregue a página.');
+        console.log('Máximo de tentativas de reconexão atingido');
+        alert('Falha na conexão. Por favor, recarregue a página.');
         return;
     }
 
@@ -585,37 +610,32 @@ async function tentarReconectar() {
     try {
         console.log(`Tentativa de reconexão ${reconnectionAttempts}/${MAX_RECONNECTION_ATTEMPTS}`);
 
-        // Fechar conexão antiga
+        // Limpar conexão antiga
         if (peerConnection) {
             peerConnection.close();
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Delay para limpeza
         }
 
-        // Criar nova conexão
-        peerConnection = new RTCPeerConnection(configuration);
-        
-        // Readicionar streams locais
-        localStream.getTracks().forEach(track => {
-            peerConnection.addTrack(track, localStream);
-        });
+        // Reiniciar processo de conexão
+        await iniciarConexaoPeer();
 
-        // Reconfigurar handlers de eventos
-        configurarEventHandlers();
-
-        // Se for o profissional, reiniciar a oferta
+        // Se for o profissional, criar nova oferta
         if (tipoUsuario === 'profissional') {
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Delay antes da oferta
             await criarOfertar();
         }
 
-        // Aguardar antes da próxima tentativa
+        // Verificar estado após um tempo
         setTimeout(() => {
-            if (peerConnection.iceConnectionState !== 'connected' && 
-                peerConnection.iceConnectionState !== 'completed') {
+            const state = peerConnection.iceConnectionState;
+            if (state !== 'connected' && state !== 'completed') {
+                console.log('Reconexão não teve sucesso, tentando novamente...');
                 tentarReconectar();
             }
         }, RECONNECTION_DELAY);
 
     } catch (error) {
-        console.error('Erro na tentativa de reconexão:', error);
+        console.error('Erro durante reconexão:', error);
         setTimeout(tentarReconectar, RECONNECTION_DELAY);
     }
 }
@@ -645,4 +665,22 @@ function configurarEventHandlers() {
     peerConnection.onconnectionstatechange = () => {
         console.log('Connection State:', peerConnection.connectionState);
     };
+}
+
+function handleConnectionStateChange() {
+    const iceState = peerConnection.iceConnectionState;
+    const connState = peerConnection.connectionState;
+    
+    console.log(`Estado da conexão - ICE: ${iceState}, Connection: ${connState}`);
+
+    if (iceState === 'failed' || connState === 'failed') {
+        if (!isReconnecting) {
+            console.log('Conexão falhou. Iniciando processo de reconexão...');
+            tentarReconectar();
+        }
+    } else if (iceState === 'connected' || iceState === 'completed') {
+        console.log('Conexão estabelecida com sucesso');
+        isReconnecting = false;
+        reconnectionAttempts = 0;
+    }
 }
