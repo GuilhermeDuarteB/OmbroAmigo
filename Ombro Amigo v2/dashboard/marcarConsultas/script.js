@@ -5,54 +5,33 @@ function loadProfissionais() {
 
     // Verificar se área e data foram selecionadas
     if (!area || !data) {
-        profissionaisList.innerHTML = "<p>Por favor, selecione uma categoria e uma data.</p>";
+        profissionaisList.innerHTML = "<p class='mensagem-erro'>Por favor, selecione uma categoria e uma data.</p>";
         return;
     }
 
     profissionaisList.style.display = 'grid';
 
     // Enviar dados para o servidor
+    const formData = new FormData();
+    formData.append('area', area);
+    formData.append('data', data);
+
     fetch('fetch_profissionais.php', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `area=${encodeURIComponent(area)}&data=${encodeURIComponent(data)}`
+        body: formData
     })
-        .then(response => response.json())
-        .then(data => {
-            if (!Array.isArray(data)) {
-                throw new Error("Resposta inválida do servidor. Esperava um array.");
-            }
-
-            // Limpar lista de profissionais
-            profissionaisList.innerHTML = '';
-
-            // Exibir profissionais disponíveis
-            data.forEach(profissional => {
-                const profView = document.createElement("div");
-                profView.classList.add("profView");
-
-                const fotoSrc = profissional.Foto
-                    ? `data:image/jpeg;base64,${profissional.Foto}`
-                    : "../conta/uploads/defaultPhoto.png";
-
-                profView.innerHTML = `
-                    <img src="${fotoSrc}" alt="Foto do Profissional" class="fas">
-                    <p>${profissional.Nome || 'Nome não encontrado'}</p>
-                    <i class="fa-solid fa-circle-info" data-profissional='${JSON.stringify(profissional)}'></i>
-                `;
-
-                profissionaisList.appendChild(profView);
-            });
-
-            // Após renderizar, anexar os eventos aos ícones
-            attachInfoIconClickEvents();
-        })
-        .catch(error => {
-            console.error('Erro ao carregar profissionais:', error);
-            profissionaisList.innerHTML = "<p>Erro ao carregar profissionais. Tente novamente.</p>";
-        });
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            displayProfissionais(data.profissionais);
+        } else {
+            throw new Error(data.error || 'Erro desconhecido');
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao carregar profissionais:', error);
+        displayError('Erro ao carregar profissionais: ' + error.message);
+    });
 }
 
 function showProfissionalDetails(profissional) {
@@ -176,64 +155,169 @@ function attachInfoIconClickEvents() {
 
 
 function marcarConsulta() {
-    const profissionalSelecionado = document.querySelector('.fa-circle-info[data-selecionado="true"]');
-    const horarioSelecionado = document.querySelector('.horario.horario-selecionado');
     const marcarConsultaBtn = document.getElementById('marcarConsultaBtn');
+    const horario = marcarConsultaBtn.dataset.horario;
+    const profissionalId = marcarConsultaBtn.dataset.profissionalId;
+    const data = document.getElementById('data').value;
 
-    if (!profissionalSelecionado || !horarioSelecionado) {
+    if (!profissionalId || !horario) {
         alert("Por favor, selecione um profissional e um horário.");
         return;
     }
 
-    const profissional = JSON.parse(profissionalSelecionado.dataset.profissional);
-    const dataConsulta = document.getElementById('data').value;
-    const horario = horarioSelecionado.textContent;
+    // Criar FormData para envio
+    const formData = new FormData();
+    formData.append('profissionalId', profissionalId);
+    formData.append('horario', horario);
+    formData.append('data', data);
 
-    // Verificar disponibilidade antes de enviar (usando query params para GET)
-    fetch(`marcar_consulta.php?profissionalId=${encodeURIComponent(profissional.Id)}&data=${encodeURIComponent(dataConsulta)}&horario=${encodeURIComponent(horario)}`)
+    fetch('marcar_consulta.php', {
+        method: 'POST',
+        body: formData
+    })
     .then(response => response.json())
     .then(data => {
-        if (data.horariosOcupados && data.horariosOcupados.includes(horario)) {
-            alert("Este horário já está ocupado.");
-            horarioSelecionado.classList.add('horario-ocupado');
-            horarioSelecionado.classList.remove('horario-selecionado');
-            marcarConsultaBtn.classList.remove('btn-ativado');
-            marcarConsultaBtn.classList.add('btn-desativado');
-            marcarConsultaBtn.disabled = true;
-            return;
-        }
-
-        // Se o horário estiver disponível, prosseguir com a marcação
-        fetch('marcar_consulta.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `profissionalId=${encodeURIComponent(profissional.Id)}&data=${encodeURIComponent(dataConsulta)}&horario=${encodeURIComponent(horario)}`
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(data.message);
-                if (data.redirect) {
-                    window.location.href = data.redirect;
-                }
-            } else {
-                alert(`Erro ao marcar consulta: ${data.message}`);
-                if (data.message === "Horário indisponível.") {
-                    horarioSelecionado.classList.add('horario-ocupado');
-                    horarioSelecionado.classList.remove('horario-selecionado');
-                    marcarConsultaBtn.classList.remove('btn-ativado');
-                    marcarConsultaBtn.classList.add('btn-desativado');
-                    marcarConsultaBtn.disabled = true;
-                }
+        if (data.success) {
+            alert(data.message);
+            if (data.redirect) {
+                window.location.href = data.redirect;
             }
-        })
-        .catch(error => {
-            console.error("Erro ao marcar consulta:", error);
-            alert("Ocorreu um erro. Tente novamente.");
-        });
+        } else {
+            alert(data.message || 'Erro ao marcar consulta');
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Erro ao processar a requisição');
     });
 }
 
 document.getElementById('marcarConsultaBtn').addEventListener('click', marcarConsulta);
+
+// Adicionar listener para redimensionamento da janela
+window.addEventListener('resize', () => {
+    const profissionaisList = document.getElementById("profissionaisList");
+    const body = document.body;
+    
+    if (profissionaisList && profissionaisList.children.length > 0) {
+        const contentHeight = profissionaisList.scrollHeight;
+        const viewportHeight = window.innerHeight;
+        
+        if (contentHeight > viewportHeight) {
+            body.classList.remove('no-scroll');
+        } else {
+            body.classList.add('no-scroll');
+        }
+    }
+});
+
+// Função para exibir os profissionais
+function displayProfissionais(profissionais) {
+    const profissionaisList = document.getElementById('profissionaisList');
+    profissionaisList.innerHTML = '';
+
+    if (profissionais.length === 0) {
+        profissionaisList.innerHTML = `
+            <div class="no-results">
+                <p>Nenhum profissional disponível para esta data e especialidade.</p>
+            </div>`;
+        return;
+    }
+
+    profissionais.forEach(profissional => {
+        const profView = document.createElement('div');
+        profView.className = 'profView';
+        
+        const fotoSrc = profissional.Foto 
+            ? `data:image/jpeg;base64,${profissional.Foto}`
+            : "../conta/uploads/defaultPhoto.png";
+
+        profView.innerHTML = `
+            <img src="${fotoSrc}" alt="Foto de ${profissional.Nome}">
+            <p>${profissional.Nome}</p>
+            <i class="fas fa-calendar-alt" onclick="mostrarDetalhes(${JSON.stringify(profissional).replace(/"/g, '&quot;')})"></i>
+        `;
+
+        profissionaisList.appendChild(profView);
+    });
+}
+
+// Função para exibir erros
+function displayError(message) {
+    const profissionaisList = document.getElementById('profissionaisList');
+    profissionaisList.innerHTML = `
+        <div class="error-message">
+            <p>${message}</p>
+        </div>`;
+}
+
+// Função para mostrar detalhes do profissional e seus horários
+function mostrarDetalhes(profissional) {
+    const detalhesProfissional = document.getElementById('detalhesProfissional');
+    const fotoDetalhes = document.getElementById('fotoDetalhes');
+    const nomeDetalhes = document.getElementById('nomeDetalhes');
+    const horariosDetalhes = document.getElementById('horariosDetalhes');
+    const marcarConsultaBtn = document.getElementById('marcarConsultaBtn');
+
+    // Configurar foto
+    fotoDetalhes.src = profissional.Foto 
+        ? `data:image/jpeg;base64,${profissional.Foto}`
+        : "../conta/uploads/defaultPhoto.png";
+
+    nomeDetalhes.textContent = profissional.Nome;
+    horariosDetalhes.innerHTML = '';
+
+    if (profissional.Horarios && profissional.Horarios.length > 0) {
+        const horariosHtml = profissional.Horarios
+            .map(horario => `
+                <button class="horario-btn ${horario.disponivel ? 'disponivel' : 'ocupado'}"
+                        ${horario.disponivel ? '' : 'disabled'}
+                        onclick="selecionarHorario(this, '${horario.horario}', ${profissional.Id})">
+                    ${horario.horario}
+                </button>
+            `)
+            .join('');
+
+        horariosDetalhes.innerHTML = horariosHtml;
+    } else {
+        horariosDetalhes.innerHTML = '<p>Não há horários disponíveis para este profissional.</p>';
+    }
+
+    detalhesProfissional.style.display = 'block';
+}
+
+// Função para selecionar um horário
+function selecionarHorario(button, horario, profissionalId) {
+    // Remover seleção anterior
+    document.querySelectorAll('.horario-btn.selecionado').forEach(btn => {
+        btn.classList.remove('selecionado');
+    });
+
+    // Adicionar seleção ao horário clicado
+    button.classList.add('selecionado');
+
+    // Ativar botão de marcar consulta
+    const marcarConsultaBtn = document.getElementById('marcarConsultaBtn');
+    marcarConsultaBtn.removeAttribute('disabled');
+    marcarConsultaBtn.classList.remove('btn-desativado');
+    marcarConsultaBtn.classList.add('btn-ativado');
+    
+    // Armazenar dados da consulta
+    marcarConsultaBtn.dataset.horario = horario;
+    marcarConsultaBtn.dataset.profissionalId = profissionalId;
+}
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', function() {
+    const fecharDetalhes = document.getElementById('fecharDetalhes');
+    if (fecharDetalhes) {
+        fecharDetalhes.addEventListener('click', () => {
+            document.getElementById('detalhesProfissional').style.display = 'none';
+        });
+    }
+
+    const marcarConsultaBtn = document.getElementById('marcarConsultaBtn');
+    if (marcarConsultaBtn) {
+        marcarConsultaBtn.addEventListener('click', marcarConsulta);
+    }
+});

@@ -1,8 +1,6 @@
 <?php
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-ini_set('log_errors', 1);
-ini_set('error_log', 'signaling_errors.log');
 error_reporting(E_ALL);
 
 session_start();
@@ -16,9 +14,6 @@ try {
     if (!isset($_SESSION['user_id'])) {
         throw new Exception('Usuário não autenticado');
     }
-
-    // Antes de processar a requisição
-    error_log("Recebendo requisição de sinalização: " . file_get_contents('php://input'));
 
     // Pegar dados do POST
     $data = json_decode(file_get_contents('php://input'), true);
@@ -74,9 +69,6 @@ try {
         $error = $stmt->errorInfo();
         throw new Exception('Erro ao salvar sinalização: ' . implode(', ', $error));
     }
-
-    // Após processar
-    error_log("Sinalização processada com sucesso: " . json_encode($params));
 
     echo json_encode(['success' => true]);
 

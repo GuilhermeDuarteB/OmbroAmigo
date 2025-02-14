@@ -72,7 +72,7 @@ include("../connection.php");
     <div class="vantagens">
         <img src="img/img1.png" alt="Imagem Descritiva">
         <div class="vantagens-texto">
-            <h2>Porquê devo-me Candidatar?</h2>
+            <h2>Porque me Candidatar?</h2>
           <p>Ao te candidatares no Ombro Amigo, recebes inúmeros benefícios, tanto profissionais como pessoais. A nossa plataforma permite-lhe contribuir para a batalha
             para ajudar a saúde mental e bem-estar da comunidade e assim apoiar alguem que precisa, e ainda
             receber algo com isso!

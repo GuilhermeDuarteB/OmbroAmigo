@@ -74,26 +74,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (fileInput) {
         fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                // Verificar tamanho (máximo 5MB)
-                if (file.size > 5 * 1024 * 1024) {
-                    alert('A imagem deve ter no máximo 5MB');
-                    e.target.value = '';
-                    return;
-                }
-
-                // Verificar tipo
-                if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
-                    alert('Apenas imagens JPEG, PNG e GIF são permitidas');
-                    e.target.value = '';
-                    return;
-                }
-
-                const form = e.target.closest('form');
-                if (form) {
-                    form.submit();
-                }
+            const form = e.target.closest('form');
+            if (form && fileInput.files.length > 0) {
+                form.submit();
             }
         });
     }

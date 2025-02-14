@@ -39,70 +39,121 @@
 }
 
 .consultasSelect {
-  margin-right: 5%;
-  margin-top: 5%;
-  margin-left: 30%;
+  margin: 40px auto;
+  max-width: 800px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .categoria-data {
   display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  /* Alinha os elementos no topo */
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
 }
 
-.categoria,
-.dataInput {
+.categoria, .dataInput {
   flex: 1;
+  max-width: 350px;
 }
 
-.categoria-data label {
+.categoria label, .dataInput label {
+  display: block;
+  margin-bottom: 10px;
+  color: #2c3e50;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.categoria select, .dataInput input[type="date"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
   font-size: 15px;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  height: auto;
 }
 
-.categoria select,
-.dataInput input[type="date"] {
-  width: 50%;
-  height: 25px;
-  margin-top: 5px;
-  border: 1px solid black;
+.categoria select:focus, .dataInput input[type="date"]:focus {
+  border-color: #4FD6E8;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 214, 232, 0.1);
+}
+
+/* Controle de overflow */
+.profissionais-container {
+    min-height: calc(100vh - 200px); /* Ajuste conforme necessário baseado no header/footer */
+    overflow-y: auto;
+    position: relative;
 }
 
 #profissionaisList {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  /* 3 colunas de largura igual */
-  gap: 20px;
-  padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px; /* Limita a largura máxima para 4 cards */
+    margin: 0 auto;
+}
+
+.no-scroll {
+    overflow: hidden !important;
 }
 
 .profView {
-  text-align: center;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-  margin-top: 15px;
-  transition: transform 0.2s ease;
-  cursor: pointer;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    aspect-ratio: 1;
 }
 
 .profView:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.profView p {
-  margin-top: 9px;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .profView img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 10px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #4FD6E8;
+}
+
+.profView p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.profView i {
+    font-size: 24px;
+    color: #4FD6E8;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.profView i:hover {
+    color: #2c3e50;
+}
+
+#infoBtn {
+    margin-top: 10px;
+    font-size: 17px;
+    cursor: pointer;
 }
 
 #infoIcon {
@@ -140,79 +191,125 @@
 }
 
 .detalhes-profissional {
+  display: none;
   position: fixed;
-  top: 25%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%);
-  width:500px;
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  z-index: 1000;
+  transform: translate(-50%, -50%);
+  background: white;
   padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  z-index: 1000;
+  width: 90%;
+  max-width: 500px;
+}
+
+.detalhes-content {
   text-align: center;
-  display: none; /* Inicialmente escondido */
-  opacity: 0; /* Começa invisível */
-  transition: opacity 0.3s ease-in, transform 0.3s ease-in; /* Animação suave */
 }
-
-.detalhes-profissional.show {
-  display: block; /* Exibe o elemento */
-  opacity: 1; /* Torna visível */
-}
-
 
 .detalhes-content img {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   margin-bottom: 15px;
+  border: 3px solid #4FD6E8;
 }
 
-.detalhes-content p {
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 10px;
+.horarios-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+  margin: 20px 0;
+  padding: 10px;
+}
+
+.horario-btn {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.horario-btn.disponivel {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.horario-btn.disponivel:hover {
+  background: #bbdefb;
+}
+
+.horario-btn.ocupado {
+  background: #f5f5f5;
+  color: #9e9e9e;
+  cursor: not-allowed;
+}
+
+.horario-btn.selecionado {
+  background: #1976d2;
+  color: white;
+}
+
+.btn-marcar {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #4FD6E8;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-marcar:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+.btn-marcar:not(:disabled):hover {
+  background: #2980b9;
 }
 
 .fechar-detalhes {
   position: absolute;
   top: 10px;
-  right: 10px;
-  font-size: 18px;
+  right: 15px;
+  font-size: 24px;
   cursor: pointer;
+  color: #666;
 }
 
-#infoBtn{
-  margin-top: 10px;
-  font-size: 17px;
-  cursor: pointer;
+#nomeDetalhes {
+  font-size: 18px;
+  font-weight: 500;
+  color: #2c3e50;
+  margin: 10px 0;
 }
 
 .mensagem-erro {
-  font-size: 18px;
-  position: absolute;
-  top:40%;
-  left: 35%;
-  color: #ff0000; /* Vermelho para destacar o erro */
-  font-weight: bold;
+  background: #fff;
+  color: #2c3e50;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
   text-align: center;
-  /* margin: 20px auto; */ /* Centraliza horizontalmente */
-  background-color: #ffe6e6; /* Fundo vermelho claro */
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ff4d4f;
-  width: 80%; /* Ajuste conforme necessário */
-  max-width: 400px; /* Limita a largura máxima */
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  width: 90%;
+  max-width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #fecharDetalhes{
   font-size:20px;
 }
 
-#nomeDetalhes{
-  margin-top:-1%;
-}
 #nomeDetalhes:after {
     margin-top:2%;
   content: "";
@@ -308,5 +405,103 @@
   padding: 12px 24px;
   border-radius: 6px;
   font-weight: 500;
+}
+
+/* Estilo para o loading */
+.loading-container {
+    text-align: center;
+    padding: 60px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4FD6E8;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 25px;
+}
+
+.loading-text {
+    color: #2c3e50;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Media Queries para controlar o número máximo de colunas */
+@media (min-width: 1200px) {
+    #profissionaisList {
+        grid-template-columns: repeat(4, 1fr); /* Máximo 4 colunas */
+    }
+}
+
+@media (max-width: 1199px) {
+    #profissionaisList {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    #profissionaisList {
+        grid-template-columns: 1fr;
+    }
+    
+    .profView {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+.profissional-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.profissional-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.horarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.error-message {
+    background: #ffebee;
+    color: #c62828;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.no-results {
+    text-align: center;
+    padding: 20px;
+    color: #666;
 }
 

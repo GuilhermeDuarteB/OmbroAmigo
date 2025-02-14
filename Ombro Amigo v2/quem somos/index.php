@@ -134,11 +134,11 @@ include("../connection.php");
             <h3>Links</h3>
             <div class="linkfooter">
                 <ul>
-                    <li><a href="../initial page/index.html">Início</a></li>
-                    <li><a href="../quem somos/index.html">Projeto Ombro Amigo</a></li>
-                    <li><a href="../planos/index.html">Planos</a></li>
-                    <li><a href="../loginReg/index.html">Entra e Regista-te</a></li>
-                </ul>
+                    <li><a href="../initial page/index.php">Início</a></li>
+                    <li><a href="../quem somos/index.php">Projeto Ombro Amigo</a></li>
+                    <li><a href="../planos/index.php">Planos</a></li>
+                    <li><a href="../registar/index.php">Registar-me</a></li>
+                    <li><a href="../login/index.php">Entrar</a></li>                </ul>
             </div>
         </div>
 

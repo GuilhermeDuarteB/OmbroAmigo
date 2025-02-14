@@ -140,22 +140,16 @@ $profissionais = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <div id="profissionaisList" class="profissionais-list"></div>
 
-
-
-        <div id="profissionaisList" class="profissionais-list">
-
+        <div id="detalhesProfissional" class="detalhes-profissional">
+            <div class="detalhes-content">
+                <span id="fecharDetalhes" class="fechar-detalhes">&times;</span>
+                <img id="fotoDetalhes" src="" alt="Foto do Profissional">
+                <p id="nomeDetalhes"></p>
+                <div id="horariosDetalhes" class="horarios-list"></div>
+                <button id="marcarConsultaBtn" class="btn-marcar" disabled>Marcar Consulta</button>
+            </div>
         </div>
-
-        <div id="detalhesProfissional" class="detalhes-profissional" style="display: none;">
-    <div class="detalhes-content">
-        <span id="fecharDetalhes" class="fechar-detalhes">&times;</span>
-        <img id="fotoDetalhes" src="" alt="Foto do Profissional">
-        <p id="nomeDetalhes"></p>
-        <div id="horariosDetalhes"></div>
-        <button id="marcarConsultaBtn" class="btn-desativado" disabled>Marcar Consulta</button>
     </div>
-</div>
-
 </body>
 
 </html>
@@ -175,46 +169,25 @@ $profissionais = $stmt->fetchAll(PDO::FETCH_ASSOC);
         profissionaisList.style.display = 'grid';
 
         // Enviar dados para o servidor
+        const formData = new FormData();
+        formData.append('area', area);
+        formData.append('data', data);
+
         fetch('fetch_profissionais.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `area=${encodeURIComponent(area)}&data=${encodeURIComponent(data)}`
+            body: formData
         })
-            .then(response => response.json())
-            .then(data => {
-                if (!Array.isArray(data)) {
-                    throw new Error("Resposta inválida do servidor. Esperava um array.");
-                }
-
-                // Limpar lista de profissionais
-                profissionaisList.innerHTML = '';
-
-                // Exibir profissionais disponíveis
-                data.forEach(profissional => {
-                    const profView = document.createElement("div");
-                    profView.classList.add("profView");
-
-                    const fotoSrc = profissional.Foto
-                        ? `data:image/jpeg;base64,${profissional.Foto}`
-                        : "../conta/uploads/defaultPhoto.png";
-
-                    profView.innerHTML = `
-        <img src="${fotoSrc}" alt="Foto do Profissional" class="fas">
-        <p>${profissional.Nome || 'Nome não encontrado'}</p>
-        <i id="infoBtn" class="fa-solid fa-circle-info" data-profissional='${JSON.stringify(profissional)}'></i>
-    `;
-
-                    profissionaisList.appendChild(profView);
-                });
-
-                // Após renderizar, anexar os eventos aos ícones
-                attachInfoIconClickEvents();
-            })
-            .catch(error => {
-                console.error('Erro ao carregar profissionais:', error);
-                profissionaisList.innerHTML = "<p class='mensagem-erro'>Erro ao carregar profissionais. Tente novamente.</p>";
-            });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                displayProfissionais(data.profissionais);
+            } else {
+                throw new Error(data.error || 'Erro desconhecido');
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao carregar profissionais:', error);
+            displayError('Erro ao carregar profissionais: ' + error.message);
+        });
     }
 </script>

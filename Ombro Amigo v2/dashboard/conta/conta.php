@@ -88,22 +88,10 @@ if ($utilizador) {
 
     // Verifica se há uma imagem e converte para base64
     if (!empty($utilizador['Foto'])) {
-        try {
-            $fotoData = $utilizador['Foto'];
-            // Detectar o tipo de imagem
-            $finfo = new finfo(FILEINFO_MIME_TYPE);
-            $mimeType = $finfo->buffer($fotoData);
-            
-            $fotoBase64 = base64_encode($fotoData);
-            $fotoSrc = "data:{$mimeType};base64,{$fotoBase64}";
-            
-            error_log("Tamanho da foto carregada: " . strlen($fotoBase64));
-        } catch (Exception $e) {
-            error_log("Erro ao processar foto: " . $e->getMessage());
-            $fotoSrc = "uploads/defaultPhoto.png";
-        }
+        $fotoBase64 = base64_encode($utilizador['Foto']);
+        $fotoSrc = "data:image/jpeg;base64,{$fotoBase64}"; // Exibir a imagem em base64
     } else {
-        $fotoSrc = "uploads/defaultPhoto.png";
+        $fotoSrc = "uploads/defaultPhoto.png";  // Caminho para a imagem padrão
     }
 } else {
     $username = "Utilizador não encontrado";

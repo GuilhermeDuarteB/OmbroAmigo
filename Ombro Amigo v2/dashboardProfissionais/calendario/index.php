@@ -106,14 +106,22 @@ $proximasConsultas = $stmtConsultas->fetchAll(PDO::FETCH_ASSOC);
   <div class="contianer2">
     <div class="calendar">
       <div class="calendar-header">
-        <span class="month-picker" id="month-picker"> May </span>
-        <div class="year-picker" id="year-picker">
-          <span class="year-change" id="pre-year">
-            <pre><</pre>
+        <div class="month-picker-container">
+          <span class="month-change" id="pre-month">
+            <i class="fas fa-chevron-left"></i>
           </span>
-          <span id="year">2020 </span>
+          <span id="month-picker"><?= $month_names[date('n')-1] ?></span>
+          <span class="month-change" id="next-month">
+            <i class="fas fa-chevron-right"></i>
+          </span>
+        </div>
+        <div class="year-picker">
+          <span class="year-change" id="pre-year">
+            <i class="fas fa-chevron-left"></i>
+          </span>
+          <span id="year"><?= date('Y') ?></span>
           <span class="year-change" id="next-year">
-            <pre>></pre>
+            <i class="fas fa-chevron-right"></i>
           </span>
         </div>
       </div>
@@ -138,7 +146,6 @@ $proximasConsultas = $stmtConsultas->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </div>
       <div class="month-list"></div>
-
     </div>
     <div class="prox-evento">
       <h3>Próximas Consultas</h3>
@@ -161,33 +168,93 @@ $proximasConsultas = $stmtConsultas->fetchAll(PDO::FETCH_ASSOC);
             <p class="sem-eventos">Não há consultas agendadas.</p>
         <?php endif; ?>
       </div>
-      <button id="definirHSemanal">Definir Horário Semanal</button>
+      <button id="definirHSemanal">Definir Horário</button>
     </div>
   </div>
   </div>
+  <div class="overlay" id="overlay"></div>
   <div class="definirHorarioContainer" id="definirHorarioContainer">
     <button id="closeMenu"><i class="fa-solid fa-xmark"></i></button>
-    <h4>Definir Agenda Semanal</h4>
-    <form id="formHorario" action="horario.php" method="POST">
-  <div class="inputContainer">
-    <div class="dataInput">
-      <label for="dataInicio">Seleciona a data de início.</label><br>
-      <input type="date" id="dataInicio" name="dataInicio" /><br>
-      <label for="dataFim">Seleciona a data de fim</label><br>
-      <input type="date" name="dataFim" id="dataFim">
-    </div>
-    <div class="horarioInput">
-      <label for="horaInicio">Seleciona uma hora de início.</label><br>
-      <input type="time" name="horaInicio" id="horaInicio"><br>
-      <label for="horaFim">Seleciona hora de fim.</label><br>
-      <input type="time" id="horaFim" name="horaFim">
-    </div>
-  </div>
-  <button id="btnHorario" type="submit">Definir Agenda</button>
-</form>
+    <h4>
+        Definir Horário
+        <span class="info-icon">
+            <i class="fas fa-info-circle"></i>
+            <span class="info-tooltip">
+                Configure seus horários de trabalho semanais. Os dias selecionados serão seus dias fixos de atendimento durante o período definido.
+            </span>
+        </span>
+    </h4>
+    <form id="formHorario">
+        <div class="periodo-vigencia">
+            <label>
+                Período de Vigência
+                <span class="info-icon">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="info-tooltip">
+                        Define o período em que este horário estará ativo. Após a data fim, o horário será automaticamente desativado.
+                    </span>
+                </span>
+            </label>
+            <div class="datas-container">
+                <div>
+                    <label for="dataInicio">Data Início</label>
+                    <input type="date" id="dataInicio" name="dataInicio" required>
+                </div>
+                <div>
+                    <label for="dataFim">Data Fim</label>
+                    <input type="date" id="dataFim" name="dataFim" required>
+                </div>
+            </div>
+        </div>
 
+        <div class="periodos-container">
+            <div class="dias-semana">
+                <label>
+                    Dias de Atendimento
+                    <span class="info-icon">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="info-tooltip">
+                            Selecione os dias da semana em que você estará disponível para atendimento. Estes serão seus dias fixos de trabalho.
+                        </span>
+                    </span>
+                </label>
+                <div class="dias-checks">
+                    <label><input type="checkbox" value="2"> Segunda-feira</label>
+                    <label><input type="checkbox" value="3"> Terça-feira</label>
+                    <label><input type="checkbox" value="4"> Quarta-feira</label>
+                    <label><input type="checkbox" value="5"> Quinta-feira</label>
+                    <label><input type="checkbox" value="6"> Sexta-feira</label>
+                    <label><input type="checkbox" value="7"> Sábado</label>
+                    <label><input type="checkbox" value="1"> Domingo</label>
+                </div>
+            </div>
 
-  </div>
+            <div id="periodos">
+                <div class="periodo">
+                    <label>
+                        Horário de Atendimento
+                        <span class="info-icon">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="info-tooltip">
+                                Defina os horários de início e fim do seu atendimento. Você pode adicionar múltiplos períodos por dia.
+                            </span>
+                        </label>
+                    <div class="horarios">
+                        <input type="time" class="hora-inicio" required>
+                        <span>até</span>
+                        <input type="time" class="hora-fim" required>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" id="addPeriodo">
+                <i class="fas fa-plus"></i> Adicionar Novo Período
+            </button>
+        </div>
+
+        <button type="submit" id="btnHorario">Salvar Horários</button>
+    </form>
+</div>
 </body>
 <script src="script.js"></script>
 

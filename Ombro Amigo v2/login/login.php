@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_id'] = 'admin';
         $_SESSION['user_name'] = 'Administrador';
         $_SESSION['user_type'] = 'admin';
-        echo json_encode(['success' => true, 'redirect' => '../adminPanel/usersPanel/UserPanel.php']);
+        echo json_encode(['success' => true, 'redirect' => '../adminPanel/index.php']);
         exit();
     }
 

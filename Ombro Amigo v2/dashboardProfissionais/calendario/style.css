@@ -32,6 +32,8 @@
    border-bottom-left-radius: 5%;
    overflow: hidden;
    padding: 30px 50px 0px 50px;
+   position: relative;
+   z-index: 1;
  }
  
  .calendar {
@@ -46,10 +48,14 @@
    font-weight: 700;
    color: var(--white);
    padding: 10px;
+   position: relative;
+   z-index: 2;
  }
  
  .calendar-body {
    pad: 10px;
+   position: relative;
+   z-index: 1;
  }
  
  .calendar-week-days {
@@ -100,6 +106,7 @@
  
  .month-picker:hover {
    background-color: var(--color-hover);
+   color: var(--color-txt);
  }
  
  .month-picker:hover {
@@ -109,22 +116,18 @@
  .year-picker {
    display: flex;
    align-items: center;
+   gap: 10px;
  }
  
  .year-change {
-   height: 30px;
-   width: 30px;
-   border-radius: 50%;
-   display: grid;
-   place-items: center;
-   margin: 0px 10px;
    cursor: pointer;
+   padding: 5px 10px;
+   border-radius: 5px;
+   transition: all 0.2s;
  }
  
  .year-change:hover {
-   background-color: var(--light-btn);
-   transition: all .2s ease-in-out;
-   transform: scale(1.12);
+   background: #f0f0f0;
  }
  
  .year-change:hover pre {
@@ -160,52 +163,64 @@
  }
  
  .month-list {
-   position: relative;
-   left: 0;
-   top: -50px;
+   position: absolute;
+   left: 50%;
+   top: 100px;
+   transform: translateX(-50%);
    background-color: #ebebeb;
    color: var(--light-text);
    display: grid;
-   grid-template-columns: repeat(3, auto);
-   gap: 5px;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 8px;
+   padding: 15px;
    border-radius: 20px;
+   width: 90%;
+   max-height: 300px;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+   z-index: 9999;
  }
  
- .month-list>div {
-   display: grid;
-   place-content: center;
-   margin: 5px 10px;
-   transition: all 0.2s ease-in-out;
+ .month-list > div {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 5px;
  }
  
- .month-list>div>div {
-   border-radius: 15px;
-   padding: 10px;
+ .month-list > div > div {
+   width: 100%;
+   text-align: center;
+   padding: 6px;
+   border-radius: 10px;
    cursor: pointer;
+   transition: all 0.2s ease-in-out;
+   font-size: 0.9em;
  }
  
- .month-list>div>div:hover {
+ .month-list > div > div:hover {
    background-color: var(--light-btn);
    color: var(--dark-text);
-   transform: scale(0.9);
-   transition: all 0.2s ease-in-out;
+   transform: scale(0.95);
  }
  
  .month-list.show {
    visibility: visible;
-   pointer-events: visible;
-   transition: 0.6s ease-in-out;
-   animation: to-left .71s forwards;
+   opacity: 1;
+   transform: translateX(-50%) scale(1);
+   transition: all 0.3s ease-in-out;
  }
  
  .month-list.hideonce {
    visibility: hidden;
+   opacity: 0;
+   transform: translateX(-50%) scale(0.8);
  }
  
  .month-list.hide {
-   animation: to-right 1s forwards;
-   visibility: none;
-   pointer-events: none;
+   visibility: hidden;
+   opacity: 0;
+   transform: translateX(-50%) scale(0.8);
+   transition: all 0.3s ease-in-out;
  }
  
  .date-time-formate {
@@ -216,6 +231,7 @@
    display: inline;
    top: 140px;
    justify-content: center;
+   z-index: 1;
  }
  
  .day-text-formate {
@@ -225,6 +241,7 @@
    border-right: 3px solid #0F94FA;
    position: absolute;
    left: -1rem;
+   z-index: 1;
  }
  
  .date-time-value {
@@ -239,6 +256,7 @@
  
  .time-formate {
    font-size: 1.5rem;
+   z-index: 1;
  }
  
  .time-formate,
@@ -372,8 +390,7 @@
  }
  
  @media (max-width:375px) {
-   .month-list>div {
- 
+   .month-list > div {
      margin: 5px 0px;
    }
  }
@@ -411,80 +428,207 @@
  .definirHorarioContainer {
    display: none;
    position: fixed;
-   left: 50%;
    top: 50%;
+   left: 50%;
    transform: translate(-50%, -50%);
-   background-color: white;
+   background: white;
    padding: 30px;
    border-radius: 15px;
-   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-   z-index: 1000;
-   opacity: 0;
-   transition: all 0.3s ease;
+   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+   max-width: 800px;
    width: 90%;
-   max-width: 600px;
- }
- 
- .definirHorarioContainer.active {
-   opacity: 1;
+   max-height: 90vh;
+   overflow-y: auto;
+   z-index: 1000;
  }
  
  .definirHorarioContainer h4 {
    color: #333;
-   font-size: 24px;
+   font-size: 1.5em;
    margin-bottom: 25px;
    text-align: center;
-   font-weight: 600;
+   position: relative;
  }
  
- .inputContainer {
-   display: grid;
-   grid-template-columns: 1fr 1fr;
-   gap: 30px;
-   margin-bottom: 30px;
+ .info-icon {
+   position: relative;
+   display: inline-flex;
+   align-items: center;
+   margin-left: 8px;
+   cursor: help;
+   vertical-align: middle;
  }
  
- .dataInput, .horarioInput {
-   display: flex;
-   flex-direction: column;
-   gap: 15px;
+ .info-icon i {
+   color: #666;
+   font-size: 0.9em;
+   padding: 0;
+   margin: 0;
  }
  
- .definirHorarioContainer label {
-   color: #555;
-   font-size: 16px;
+ .info-tooltip {
+   visibility: hidden;
+   position: absolute;
+   background: #333;
+   color: white;
+   padding: 10px;
+   border-radius: 6px;
+   width: 200px;
+   bottom: 100%;
+   left: 50%;
+   transform: translateX(-50%);
+   font-size: 0.8em;
+   z-index: 1000;
+   opacity: 0;
+   transition: opacity 0.3s;
    margin-bottom: 5px;
  }
  
- .definirHorarioContainer input {
-   padding: 12px;
-   border: 2px solid #e0e0e0;
-   border-radius: 8px;
-   font-size: 16px;
-   transition: border-color 0.3s ease;
+ .info-icon:hover .info-tooltip {
+   visibility: visible;
+   opacity: 1;
  }
  
- .definirHorarioContainer input:focus {
-   border-color: #3398b6;
-   outline: none;
+ .periodo-vigencia {
+   background: #f8f9fa;
+   padding: 20px;
+   border-radius: 10px;
+   margin-bottom: 30px;
+ }
+ 
+ .periodo-vigencia label {
+   font-weight: bold;
+   color: #444;
+   display: block;
+   margin-bottom: 15px;
+ }
+ 
+ .datas-container {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 20px;
+ }
+ 
+ .datas-container div {
+   display: flex;
+   flex-direction: column;
+ }
+ 
+ .datas-container input {
+   padding: 10px;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   font-size: 1em;
+ }
+ 
+ .dias-semana {
+   background: #f8f9fa;
+   padding: 20px;
+   border-radius: 10px;
+   margin-bottom: 20px;
+ }
+ 
+ .dias-checks {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+   gap: 12px;
+   margin-top: 15px;
+ }
+ 
+ .dias-checks label {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   padding: 10px;
+   background: white;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: background 0.3s;
+ }
+ 
+ .dias-checks label:hover {
+   background: #e9ecef;
+ }
+ 
+ .dias-checks input[type="checkbox"] {
+   width: 18px;
+   height: 18px;
+ }
+ 
+ .periodo {
+   background: white;
+   padding: 20px;
+   border-radius: 10px;
+   margin: 15px 0;
+   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+ }
+ 
+ .periodo label {
+   font-weight: bold;
+   color: #444;
+   display: block;
+   margin-bottom: 15px;
+ }
+ 
+ .horarios {
+   display: flex;
+   align-items: center;
+   gap: 15px;
+ }
+ 
+ .horarios input[type="time"] {
+   padding: 8px;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   font-size: 1em;
+ }
+ 
+ .remove-periodo {
+   background: #dc3545;
+   color: white;
+   border: none;
+   border-radius: 50%;
+   width: 30px;
+   height: 30px;
+   cursor: pointer;
+   transition: background 0.3s;
+ }
+ 
+ .remove-periodo:hover {
+   background: #c82333;
+ }
+ 
+ #addPeriodo {
+   background: #28a745;
+   color: white;
+   border: none;
+   padding: 12px 20px;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 1em;
+   transition: background 0.3s;
+   width: 100%;
+   margin: 20px 0;
+ }
+ 
+ #addPeriodo:hover {
+   background: #218838;
  }
  
  #btnHorario {
-   width: 100%;
-   padding: 15px;
-   background-color: #3398b6;
+   background: #007bff;
    color: white;
    border: none;
-   border-radius: 8px;
-   font-size: 16px;
-   font-weight: 500;
+   padding: 15px 30px;
+   border-radius: 5px;
    cursor: pointer;
-   transition: background-color 0.3s ease;
-   margin-top: 20px;
+   font-size: 1.1em;
+   width: 100%;
+   transition: background 0.3s;
  }
  
  #btnHorario:hover {
-   background-color: #2b7d96;
+   background: #0056b3;
  }
  
  #closeMenu {
@@ -493,11 +637,10 @@
    right: 15px;
    background: none;
    border: none;
-   font-size: 24px;
-   color: #666;
+   font-size: 1.5em;
    cursor: pointer;
-   transition: color 0.3s ease;
-   padding: 5px;
+   color: #666;
+   transition: color 0.3s;
  }
  
  #closeMenu:hover {
@@ -534,14 +677,14 @@
  }
  
  .calendar-days div.highlight-date {
-  background-color: green;
-  color: white;
-  border-radius: 50%;
-  transition: transform 0.2s;
+    background-color: #4CAF50;  /* Verde mais suave */
+    color: white;
+    border-radius: 20%;
 }
 
 .calendar-days div.highlight-date:hover {
-  transform: scale(1.2);
+    background-color: #45a049;  /* Verde mais escuro no hover */
+    transform: scale(1.1);
 }
 
 .calendar-days div.has-schedule {
@@ -688,4 +831,180 @@
 
 .prox-evento::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+.periodo-vigencia, .periodos-container {
+    margin-bottom: 20px;
+}
+
+.datas-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.dias-checks {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.periodo {
+    margin: 15px 0;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+}
+
+.horarios {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.remove-periodo {
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+#addPeriodo {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+/* Adicionar um overlay quando o container estiver visível */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Classe para mostrar o container e overlay */
+.show {
+    display: block;
+}
+
+/* Sobrescrever estilos dos ícones dentro do container de horários */
+.definirHorarioContainer .fas {
+    position: static; /* Remove o posicionamento relativo */
+    width: auto;
+    height: auto;
+    top: 0;
+    font-size: 16px;
+    text-align: center;
+    margin: 0;
+    vertical-align: middle;
+}
+
+.info-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    cursor: help;
+    vertical-align: middle;
+}
+
+.info-icon i {
+    color: #666;
+    font-size: 0.9em;
+    padding: 0;
+    margin: 0;
+}
+
+.info-tooltip {
+    visibility: hidden;
+    position: absolute;
+    background: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    width: 200px;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8em;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s;
+    margin-bottom: 5px;
+}
+
+/* Ajuste para o botão de adicionar período */
+#addPeriodo .fas {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+/* Ajuste para o botão de fechar */
+#closeMenu .fa-xmark {
+    position: static;
+    width: auto;
+    height: auto;
+    top: 0;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.month-picker-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.month-change {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: 0px 10px;
+    cursor: pointer;
+    color: var(--white);
+}
+
+.month-change:hover {
+    background-color: var(--light-btn);
+    transition: all .2s ease-in-out;
+    transform: scale(1.1);
+}
+
+.month-change pre {
+    font-size: 18px;
+}
+
+#month-picker {
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Remover estilos anteriores da lista de meses já que não será mais necessária */
+.month-list {
+    display: none;
 }
