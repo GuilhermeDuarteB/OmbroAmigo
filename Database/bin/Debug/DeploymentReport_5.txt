@@ -1,0 +1,22 @@
+﻿** Highlights
+     Tables that will be recreated with data migrated
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Create
+       [dbo].[Sinalizacao] (Table)
+       Default Constraint: unnamed constraint on [dbo].[Sinalizacao] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Sinalizacao] (Default Constraint)
+       Foreign Key: unnamed constraint on [dbo].[Sinalizacao] (Foreign Key)
+       [dbo].[FK_Remetente_User] (Foreign Key)
+       [dbo].[FK_Remetente_Prof] (Foreign Key)
+       [dbo].[FK_Destinatario_User] (Foreign Key)
+       [dbo].[FK_Destinatario_Prof] (Foreign Key)
+
+** Supporting actions

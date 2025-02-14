@@ -1,0 +1,10 @@
+C:\Users\Guilherme\source\repos\EPSM-INF-2022-2025\PAP_OmbroAmigo\Database\bin\Debug\Database.dacpac
+C:\Users\Guilherme\source\repos\EPSM-INF-2022-2025\PAP_OmbroAmigo\Database\bin\Debug\Database.dll
+C:\Users\Guilherme\source\repos\EPSM-INF-2022-2025\PAP_OmbroAmigo\Database\bin\Debug\Database.pdb
+C:\Users\Guilherme\source\repos\EPSM-INF-2022-2025\PAP_OmbroAmigo\Database\obj\Debug\Database.sqlproj.AssemblyReference.cache
+C:\Users\Guilherme\source\repos\EPSM-INF-2022-2025\PAP_OmbroAmigo\Database\obj\Debug\Model.xml
+C:\Users\Guilherme\source\repos\EPSM-INF-2022-2025\PAP_OmbroAmigo\Database\obj\Debug\refactor.xml
+C:\Users\Guilherme\source\repos\EPSM-INF-2022-2025\PAP_OmbroAmigo\Database\obj\Debug\postdeploy.sql
+C:\Users\Guilherme\source\repos\EPSM-INF-2022-2025\PAP_OmbroAmigo\Database\obj\Debug\predeploy.sql
+C:\Users\Guilherme\source\repos\EPSM-INF-2022-2025\PAP_OmbroAmigo\Database\obj\Debug\Database.dll
+C:\Users\Guilherme\source\repos\EPSM-INF-2022-2025\PAP_OmbroAmigo\Database\obj\Debug\Database.pdb

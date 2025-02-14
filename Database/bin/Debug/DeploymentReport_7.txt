@@ -1,0 +1,23 @@
+﻿** Highlights
+     Tables that will be recreated with data migrated
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Drop
+       [dbo].[FK_UtilizadoresPorAreas_ToAreas] (Foreign Key)
+       [dbo].[FK_UtilizadoresPorAreas_ToUtilizadores] (Foreign Key)
+       unnamed constraint on [dbo].[SubscricaoPorUtilizador] (Check Constraint)
+       unnamed constraint on [dbo].[Pagamentos] (Check Constraint)
+       unnamed constraint on [dbo].[Pagamentos] (Check Constraint)
+     Create
+       Check Constraint: unnamed constraint on [dbo].[SubscricaoPorUtilizador] (Check Constraint)
+       Check Constraint: unnamed constraint on [dbo].[Pagamentos] (Check Constraint)
+       Check Constraint: unnamed constraint on [dbo].[Pagamentos] (Check Constraint)
+
+** Supporting actions

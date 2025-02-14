@@ -1,0 +1,35 @@
+﻿** Highlights
+     Tables that will be recreated with data migrated
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Alter
+       [dbo].[Utilizadores] (Table)
+     Create
+       [dbo].[Pagamentos] (Table)
+       [dbo].[SubscricaoPorUtilizador] (Table)
+       [dbo].[Subscricoes] (Table)
+       Default Constraint: unnamed constraint on [dbo].[Pagamentos] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Pagamentos] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Pagamentos] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[SubscricaoPorUtilizador] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[SubscricaoPorUtilizador] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[SubscricaoPorUtilizador] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Subscricoes] (Default Constraint)
+       Default Constraint: unnamed constraint on [dbo].[Subscricoes] (Default Constraint)
+       Foreign Key: unnamed constraint on [dbo].[Pagamentos] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[Pagamentos] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[SubscricaoPorUtilizador] (Foreign Key)
+       Foreign Key: unnamed constraint on [dbo].[SubscricaoPorUtilizador] (Foreign Key)
+       [dbo].[FK_Utilizadores_ToTable] (Foreign Key)
+       Check Constraint: unnamed constraint on [dbo].[Pagamentos] (Check Constraint)
+       Check Constraint: unnamed constraint on [dbo].[Pagamentos] (Check Constraint)
+       Check Constraint: unnamed constraint on [dbo].[SubscricaoPorUtilizador] (Check Constraint)
+
+** Supporting actions
