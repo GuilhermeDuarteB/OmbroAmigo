@@ -49,7 +49,7 @@ if ($userData) {
         </p>
         <p id="nome"><?=$nome;?></p>
         <p>Parece que a tua candidatura ainda se encontra em análise!</p>
-        <a href="../initial page/index.html">Voltar para a Página Inicial</a>
+        <a href="../initial page/index.php">Voltar para a Página Inicial</a>
     </div>
 </body>
 </html>
