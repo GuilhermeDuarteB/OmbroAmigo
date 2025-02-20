@@ -37,21 +37,58 @@ include("../connection.php");
             <li><a href="../candidaturas/candidaturas.php">Candidatar-me</a></li>
             <li><a class="active" href="../planos/index.php">Planos</a></li>
             <?php if (isset($_SESSION['user_id'])): ?>
-            <li class="user-dropdown">
-                <a href="<?= ($_SESSION['user_type'] == 'UtilizadorProfissional') ? '../dashboardProfissionais/dashboardInicial/index.php' : '../dashboard/dashinicial/index.php'; ?>">
-                    <img src="<?= !empty($_SESSION['user_photo']) ? 'data:image/jpeg;base64,' . $_SESSION['user_photo'] : '../dashboard/conta/uploads/defaultPhoto.png'; ?>" class="user-photo" alt="Foto do usuário">
-                </a>
-                <div class="user-dropdown-menu">
-                    <ul>
-                        <li><a href="<?= ($_SESSION['user_type'] == 'UtilizadorProfissional') ? '../dashboardProfissionais/dashboardInicial/index.php' : '../dashboard/dashinicial/index.php'; ?>">Dashboard</a></li>
-                        <li><a href="../dashboard/logout.php">Sair</a></li>
-                    </ul>
-                </div>
-            </li>
-        <?php else: ?>
-            <li><a href="../registar/index.html">Registar-me</a></li>
-            <li><a href="../login/index.html">Entrar</a></li>
-        <?php endif; ?>
+                <?php 
+                // Verifica se é um utilizador profissional
+                if ($_SESSION['user_type'] == 'UtilizadorProfissional') {
+                    // Busca o tipo do profissional na base de dados
+                    $user_id = $_SESSION['user_id'];
+                    $query = "SELECT Tipo FROM UtilizadoresProfissionais WHERE ID = :user_id";
+                    $stmt = $conn->prepare($query);
+                    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+                    $stmt->execute();
+                    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                    
+                    if ($user && $user['Tipo'] == 'profissional'): ?>
+                        <li class="user-dropdown">
+                            <a href="#">
+                                <?php if (isset($_SESSION['user_photo']) && $_SESSION['user_photo']): ?>
+                                    <img src="data:image/jpeg;base64,<?= $_SESSION['user_photo'] ?>" class="user-photo">
+                                <?php else: ?>
+                                    <img src="../dashboard/conta/uploads/defaultPhoto.png" class="user-photo" alt="Foto de perfil padrão">
+                                <?php endif; ?>
+                            </a>
+                            <div class="user-dropdown-menu">
+                                <ul>
+                                    <li><a href="../dashboardProfissionais/dashboardInicial/index.php">Dashboard</a></li>
+                                    <li><a href="../dashboard/logout.php">Sair</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    <?php else: ?>
+                        <li><a href="../registar/index.html">Registar-me</a></li>
+                        <li><a href="../login/index.html">Entrar</a></li>
+                    <?php endif; ?>
+                <?php } else { ?>
+                    <li class="user-dropdown">
+                        <a href="#">
+                            <?php if (isset($_SESSION['user_photo']) && $_SESSION['user_photo']): ?>
+                                <img src="data:image/jpeg;base64,<?= $_SESSION['user_photo'] ?>" class="user-photo">
+                            <?php else: ?>
+                                <img src="../dashboard/conta/uploads/defaultPhoto.png" class="user-photo" alt="Foto de perfil padrão">
+                            <?php endif; ?>
+                        </a>
+                        <div class="user-dropdown-menu">
+                            <ul>
+                                <li><a href="../dashboard/dashinicial/index.php">Dashboard</a></li>
+                                <li><a href="../dashboard/logout.php">Sair</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                <?php } ?>
+            <?php else: ?>
+                <li><a href="../registar/index.html">Registar-me</a></li>
+                <li><a href="../login/index.html">Entrar</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 </head>
@@ -123,7 +160,7 @@ include("../connection.php");
 
 <div class="head" id="HSC">
     <h1>
-        O Plano “Heróis Sem Capa”
+        O Plano "Heróis Sem Capa"
     </h1>
 </div>
 
