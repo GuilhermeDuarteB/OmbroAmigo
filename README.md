@@ -36,14 +36,6 @@ This project was developed as a **PAP (Professional Aptitude Test / Prova de Apt
 
 ---
 
-## 🖼️ Preview
-
-<div align="center">
-  <img src="Design sem nome (2).png" alt="App Preview" width="700"/>
-</div>
-
----
-
 ## 🛠️ Tech Stack
 
 | Layer | Technology |
