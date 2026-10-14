@@ -1,8 +1,8 @@
 <?php
-$serverName = "sql-ombro-amigo.database.windows.net";
-$database = "db-ombro-amigo";
-$username = "ombro-amigo";
-$password = "Epsm2024#";
+$serverName = "";
+$database = "";
+$username = "";
+$password = "";
 
 try {
     $conn = new PDO("sqlsrv:server=$serverName;Database=$database", $username, $password);
